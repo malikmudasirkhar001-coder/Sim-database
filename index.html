@@ -1,596 +1,532 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SIM Info · Mudasir Database</title>
-  <!-- Font Awesome for icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
-    }
-
-    body {
-      background: linear-gradient(145deg, #0b0f1c 0%, #1a1f33 100%);
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 1.5rem;
-    }
-
-    .card {
-      background: rgba(20, 25, 45, 0.85);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-radius: 2.5rem;
-      padding: 2.2rem 2rem;
-      max-width: 700px;
-      width: 100%;
-      box-shadow: 0 30px 50px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(120, 180, 255, 0.15) inset;
-      border: 1px solid rgba(80, 140, 255, 0.25);
-      transition: all 0.2s;
-    }
-
-    .header {
-      display: flex;
-      align-items: center;
-      gap: 0.9rem;
-      margin-bottom: 2rem;
-      flex-wrap: wrap;
-    }
-
-    .header i {
-      font-size: 2.4rem;
-      color: #4f9eff;
-      filter: drop-shadow(0 0 10px #1e4faa);
-      background: rgba(30, 70, 150, 0.25);
-      padding: 0.7rem;
-      border-radius: 1.8rem;
-    }
-
-    .header h1 {
-      font-size: 2rem;
-      font-weight: 600;
-      letter-spacing: -0.5px;
-      color: #eef5ff;
-      text-shadow: 0 2px 8px rgba(0, 40, 100, 0.8);
-    }
-
-    .header h1 span {
-      font-size: 1rem;
-      font-weight: 400;
-      background: #254a7a;
-      padding: 0.2rem 0.9rem;
-      border-radius: 40px;
-      color: #b8d6ff;
-      margin-left: 0.8rem;
-      vertical-align: middle;
-      border: 1px solid #3d6da0;
-    }
-
-    .badge {
-      margin-left: auto;
-      font-size: 0.8rem;
-      background: #1e2c47;
-      padding: 0.4rem 1rem;
-      border-radius: 30px;
-      border: 1px solid #3165a0;
-      color: #99c0ff;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      white-space: nowrap;
-    }
-
-    .badge i {
-      font-size: 0.8rem;
-      color: #3e93ff;
-      background: transparent;
-      padding: 0;
-      filter: none;
-      text-shadow: none;
-    }
-
-    .search-section {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      margin-bottom: 2.2rem;
-    }
-
-    .input-group {
-      display: flex;
-      align-items: center;
-      background: #0b101f;
-      border-radius: 4rem;
-      padding: 0.3rem 0.3rem 0.3rem 1.5rem;
-      border: 1px solid #2b3f66;
-      transition: 0.2s;
-      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(70, 130, 255, 0.1);
-    }
-
-    .input-group:focus-within {
-      border-color: #2f7bff;
-      box-shadow: 0 0 0 3px rgba(47, 123, 255, 0.3), 0 8px 20px #00000070;
-    }
-
-    .input-group i {
-      color: #3c7eff;
-      font-size: 1.2rem;
-      margin-right: 0.5rem;
-    }
-
-    .input-group input {
-      flex: 1;
-      background: transparent;
-      border: none;
-      outline: none;
-      font-size: 1.2rem;
-      padding: 0.9rem 0.5rem 0.9rem 0;
-      color: #ffffff;
-      letter-spacing: 0.5px;
-      font-weight: 500;
-      min-width: 0;
-    }
-
-    .input-group input::placeholder {
-      color: #6a7fa0;
-      font-weight: 400;
-      font-size: 1rem;
-      letter-spacing: 0.3px;
-    }
-
-    .input-group button {
-      background: linear-gradient(135deg, #1f5ed6, #0e3b9e);
-      border: none;
-      border-radius: 4rem;
-      padding: 0.9rem 2rem;
-      color: white;
-      font-weight: 600;
-      font-size: 1rem;
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-      cursor: pointer;
-      transition: 0.2s;
-      border: 1px solid #4d8cff;
-      box-shadow: 0 8px 16px #0a1a3a;
-      letter-spacing: 0.3px;
-      white-space: nowrap;
-    }
-
-    .input-group button:hover {
-      background: linear-gradient(135deg, #2b6ef0, #1548b0);
-      transform: scale(1.01);
-      box-shadow: 0 10px 22px #0b1f4b;
-    }
-
-    .input-group button:active {
-      transform: scale(0.98);
-    }
-
-    .input-group button i {
-      font-size: 1rem;
-      color: white;
-      margin: 0;
-    }
-
-    .note {
-      font-size: 0.8rem;
-      color: #7f94bb;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      padding-left: 0.8rem;
-    }
-
-    .note i {
-      color: #3380ff;
-      font-size: 0.75rem;
-    }
-
-    /* result container */
-    .result-container {
-      background: #0b111fcc;
-      border-radius: 2rem;
-      padding: 1.2rem 1.5rem 1.5rem;
-      border: 1px solid #263b60;
-      backdrop-filter: blur(8px);
-      box-shadow: inset 0 2px 10px #00000050, 0 10px 20px #00000030;
-      min-height: 210px;
-      transition: all 0.2s;
-    }
-
-    .result-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid #1f3150;
-      padding-bottom: 0.75rem;
-      margin-bottom: 1.2rem;
-    }
-
-    .result-header span {
-      font-size: 0.85rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      color: #6c8ec0;
-    }
-
-    .result-header .status-badge {
-      background: #142b1f;
-      padding: 0.25rem 1rem;
-      border-radius: 40px;
-      font-size: 0.75rem;
-      font-weight: 600;
-      color: #86e0a0;
-      border: 1px solid #2c7a4d;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-    }
-
-    .status-badge i {
-      font-size: 0.65rem;
-    }
-
-    .record-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 0.9rem;
-    }
-
-    .field {
-      display: flex;
-      align-items: flex-start;
-      gap: 0.8rem;
-      background: #0e1527;
-      padding: 0.75rem 1rem;
-      border-radius: 1.4rem;
-      border-left: 4px solid #2c6ed4;
-      transition: 0.15s;
-      box-shadow: 0 2px 6px #00000040;
-    }
-
-    .field i {
-      width: 22px;
-      color: #3d82ff;
-      font-size: 1.1rem;
-      margin-top: 0.1rem;
-      text-align: center;
-    }
-
-    .field-content {
-      flex: 1;
-      display: flex;
-      flex-wrap: wrap;
-      align-items: baseline;
-      gap: 0.4rem 0.8rem;
-    }
-
-    .field-label {
-      font-size: 0.75rem;
-      font-weight: 500;
-      color: #7f9bcb;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      min-width: 70px;
-    }
-
-    .field-value {
-      font-weight: 600;
-      color: #eaf1ff;
-      font-size: 1.05rem;
-      word-break: break-word;
-      letter-spacing: 0.2px;
-      text-shadow: 0 1px 4px black;
-    }
-
-    .empty-state {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 2rem 1rem;
-      color: #5f7397;
-      text-align: center;
-      gap: 1rem;
-    }
-
-    .empty-state i {
-      font-size: 2.6rem;
-      color: #25427a;
-    }
-
-    .empty-state p {
-      font-size: 0.95rem;
-    }
-
-    .loader {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      padding: 2.5rem 1rem;
-      color: #7d9dd0;
-    }
-
-    .loader-spinner {
-      width: 32px;
-      height: 32px;
-      border: 4px solid #1d3155;
-      border-top: 4px solid #3b7eff;
-      border-radius: 50%;
-      animation: spin 0.9s linear infinite;
-    }
-
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-
-    .footer {
-      margin-top: 1.5rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 0.7rem;
-      color: #475e83;
-      border-top: 1px solid #1d2c46;
-      padding-top: 1rem;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-    }
-
-    .footer a {
-      color: #4c85dd;
-      text-decoration: none;
-    }
-
-    .footer a:hover {
-      text-decoration: underline;
-    }
-
-    .error-msg {
-      color: #ff8a8a;
-      background: #2a1515;
-      padding: 0.8rem 1.2rem;
-      border-radius: 1.5rem;
-      font-size: 0.9rem;
-      display: flex;
-      align-items: center;
-      gap: 0.8rem;
-    }
-
-    .error-msg i {
-      color: #ff5252;
-      font-size: 1.2rem;
-    }
-
-    /* Responsive */
-    @media (max-width: 500px) {
-      .card { padding: 1.5rem 1.2rem; }
-      .header h1 { font-size: 1.5rem; }
-      .badge { margin-left: 0; }
-      .input-group button span { display: none; }
-      .input-group button i { margin: 0; }
-      .input-group button { padding: 0.9rem 1.3rem; }
-      .field { flex-wrap: wrap; }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SIM Info · Mudasir Database</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI',Roboto,sans-serif; }
+  body { background:linear-gradient(145deg,#0b0f1c,#1a1f33); min-height:100vh; display:flex; align-items:center; justify-content:center; padding:1.5rem; }
+  .card { background:rgba(20,25,45,0.85); backdrop-filter:blur(12px); border-radius:2.5rem; padding:2.2rem 2rem; max-width:700px; width:100%; box-shadow:0 30px 50px rgba(0,0,0,0.7); border:1px solid rgba(80,140,255,0.25); }
+  .header { display:flex; align-items:center; gap:0.9rem; margin-bottom:2rem; flex-wrap:wrap; }
+  .header i.main-icon { font-size:2.4rem; color:#4f9eff; background:rgba(30,70,150,0.25); padding:0.7rem; border-radius:1.8rem; }
+  .header h1 { font-size:2rem; font-weight:600; color:#eef5ff; }
+  .header h1 span { font-size:1rem; font-weight:400; background:#254a7a; padding:0.2rem 0.9rem; border-radius:40px; color:#b8d6ff; margin-left:0.8rem; border:1px solid #3d6da0; }
+  .badge { margin-left:auto; font-size:0.8rem; background:#1e2c47; padding:0.4rem 1rem; border-radius:30px; border:1px solid #3165a0; color:#99c0ff; display:flex; align-items:center; gap:6px; }
+  .tabs { display:flex; gap:0.5rem; margin-bottom:1.5rem; }
+  .tab { flex:1; background:#131c30; color:#8fa9d0; border:1px solid #263b60; border-radius:2rem; padding:0.7rem; cursor:pointer; font-weight:600; font-size:0.85rem; text-align:center; }
+  .tab.active { background:linear-gradient(135deg,#1f5ed6,#0e3b9e); color:white; border-color:#4d8cff; }
+  .search-section { display:flex; flex-direction:column; gap:1rem; margin-bottom:1.5rem; }
+  .input-group { display:flex; align-items:center; background:#0b101f; border-radius:4rem; padding:0.3rem 0.3rem 0.3rem 1.5rem; border:1px solid #2b3f66; }
+  .input-group:focus-within { border-color:#2f7bff; box-shadow:0 0 0 3px rgba(47,123,255,0.3); }
+  .input-group i { color:#3c7eff; font-size:1.2rem; margin-right:0.5rem; }
+  .input-group input { flex:1; background:transparent; border:none; outline:none; font-size:1.1rem; padding:0.9rem 0.5rem; color:#fff; font-weight:500; min-width:0; }
+  .input-group input::placeholder { color:#6a7fa0; }
+  .input-group button { background:linear-gradient(135deg,#1f5ed6,#0e3b9e); border:none; border-radius:4rem; padding:0.9rem 1.6rem; color:white; font-weight:600; display:flex; align-items:center; gap:0.5rem; cursor:pointer; border:1px solid #4d8cff; white-space:nowrap; font-size:0.9rem; }
+  .input-group button:hover { background:linear-gradient(135deg,#2b6ef0,#1548b0); }
+  .input-group button:disabled { opacity:0.5; cursor:not-allowed; }
+  .note { font-size:0.8rem; color:#7f94bb; display:flex; align-items:center; gap:6px; padding-left:0.8rem; }
+  .note i { color:#3380ff; font-size:0.75rem; }
+  .result-container { background:#0b111fcc; border-radius:2rem; padding:1.2rem 1.5rem; border:1px solid #263b60; min-height:200px; }
+  .result-header { display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #1f3150; padding-bottom:0.75rem; margin-bottom:1.2rem; }
+  .result-header span { font-size:0.85rem; font-weight:600; text-transform:uppercase; letter-spacing:1px; color:#6c8ec0; }
+  .status-badge { background:#142b1f; padding:0.25rem 1rem; border-radius:40px; font-size:0.75rem; font-weight:600; color:#86e0a0; border:1px solid #2c7a4d; }
+  .record-grid { display:grid; gap:0.9rem; }
+  .field { display:flex; align-items:flex-start; gap:0.8rem; background:#0e1527; padding:0.75rem 1rem; border-radius:1.4rem; border-left:4px solid #2c6ed4; }
+  .field i { width:22px; color:#3d82ff; font-size:1.1rem; margin-top:0.1rem; text-align:center; }
+  .field-content { flex:1; display:flex; flex-wrap:wrap; align-items:baseline; gap:0.4rem 0.8rem; }
+  .field-label { font-size:0.75rem; font-weight:500; color:#7f9bcb; text-transform:uppercase; min-width:70px; }
+  .field-value { font-weight:600; color:#eaf1ff; font-size:1.05rem; word-break:break-word; }
+  .empty-state { display:flex; flex-direction:column; align-items:center; justify-content:center; padding:2rem 1rem; color:#5f7397; text-align:center; gap:1rem; }
+  .empty-state i { font-size:2.6rem; color:#25427a; }
+  .loader { display:flex; align-items:center; justify-content:center; gap:12px; padding:2.5rem 1rem; color:#7d9dd0; }
+  .loader-spinner { width:32px; height:32px; border:4px solid #1d3155; border-top:4px solid #3b7eff; border-radius:50%; animation:spin 0.9s linear infinite; }
+  @keyframes spin { to { transform:rotate(360deg); } }
+  .error-msg { color:#ff8a8a; background:#2a1515; padding:0.8rem 1.2rem; border-radius:1.5rem; font-size:0.9rem; display:flex; align-items:center; gap:0.8rem; }
+  .error-msg i { color:#ff5252; font-size:1.2rem; }
+  .screen { display:none; text-align:center; padding:1rem; }
+  .screen.active { display:block; }
+  .screen h2 { color:#eef5ff; font-size:1.6rem; margin-bottom:0.8rem; }
+  .screen p { color:#8fa9d0; font-size:0.95rem; margin-bottom:1.5rem; line-height:1.5; }
+  .google-btn { background:#fff; color:#1a1f33; border:none; border-radius:4rem; padding:1rem 2rem; font-weight:600; font-size:1rem; display:inline-flex; align-items:center; gap:0.7rem; cursor:pointer; box-shadow:0 10px 25px rgba(0,0,0,0.5); transition:0.2s; }
+  .google-btn:hover { transform:translateY(-2px); }
+  .google-btn img { width:22px; height:22px; }
+  .pending-icon { font-size:4rem; color:#f5b942; margin-bottom:1rem; }
+  .user-bar { display:flex; align-items:center; justify-content:space-between; margin-bottom:1.5rem; padding-bottom:1rem; border-bottom:1px solid #1f3150; flex-wrap:wrap; gap:0.8rem; }
+  .user-info { display:flex; align-items:center; gap:0.7rem; }
+  .user-info img { width:38px; height:38px; border-radius:50%; border:2px solid #3d82ff; }
+  .user-info div { text-align:left; }
+  .user-info .name { color:#eaf1ff; font-weight:600; font-size:0.9rem; }
+  .user-info .email { color:#7f9bcb; font-size:0.75rem; }
+  .logout-btn { background:#3a1414; color:#ff8a8a; border:1px solid #5a2020; border-radius:2rem; padding:0.5rem 1.2rem; font-size:0.8rem; cursor:pointer; }
+  .time-left { background:#0e2a1a; color:#7ee0a8; border:1px solid #1e5a35; border-radius:2rem; padding:0.4rem 1rem; font-size:0.75rem; font-weight:600; }
+  .time-left.expired { background:#2a1414; color:#ff8a8a; border-color:#5a2020; }
+  .notif-bell { position:relative; cursor:pointer; color:#8fa9d0; font-size:1.2rem; }
+  .notif-bell .dot { position:absolute; top:-4px; right:-4px; background:#ff3b3b; color:white; font-size:0.6rem; border-radius:50%; width:16px; height:16px; display:flex; align-items:center; justify-content:center; font-weight:700; }
+  .notif-panel { position:fixed; top:0; right:-400px; width:340px; max-width:90vw; height:100vh; background:#0d1424; box-shadow:-20px 0 40px rgba(0,0,0,0.8); transition:0.3s; z-index:100; padding:1.5rem; overflow-y:auto; }
+  .notif-panel.open { right:0; }
+  .notif-panel h3 { color:#eaf1ff; margin-bottom:1rem; display:flex; justify-content:space-between; align-items:center; }
+  .notif-panel h3 i { cursor:pointer; color:#8fa9d0; }
+  .notif-item { background:#131c30; border-left:3px solid #3d82ff; padding:0.8rem 1rem; border-radius:0.8rem; margin-bottom:0.8rem; }
+  .notif-item .title { color:#eaf1ff; font-weight:600; font-size:0.9rem; margin-bottom:0.3rem; }
+  .notif-item .msg { color:#8fa9d0; font-size:0.8rem; line-height:1.4; }
+  .notif-item .time { color:#4a5f80; font-size:0.7rem; margin-top:0.4rem; }
+  .notif-empty { color:#4a5f80; text-align:center; padding:2rem 0; font-size:0.85rem; }
+  .history-list { max-height:400px; overflow-y:auto; }
+  .hist-item { display:flex; justify-content:space-between; align-items:center; background:#0e1527; padding:0.8rem 1rem; border-radius:1rem; margin-bottom:0.6rem; border-left:3px solid #2c6ed4; }
+  .hist-item .num { color:#eaf1ff; font-weight:600; font-size:0.95rem; }
+  .hist-item .name { color:#7f9bcb; font-size:0.75rem; margin-top:0.2rem; }
+  .hist-item .date { color:#4a5f80; font-size:0.7rem; text-align:right; }
+  .footer { margin-top:1.5rem; display:flex; justify-content:space-between; font-size:0.7rem; color:#475e83; border-top:1px solid #1d2c46; padding-top:1rem; flex-wrap:wrap; gap:0.5rem; }
+  .footer a { color:#4c85dd; text-decoration:none; }
+  @media (max-width:500px){ .card{padding:1.5rem 1.2rem;} .header h1{font-size:1.5rem;} .badge{margin-left:0;} .input-group button span{display:none;} .input-group button{padding:0.9rem 1.2rem;} }
+</style>
 </head>
 <body>
-  <div class="card">
-    <!-- Header -->
-    <div class="header">
-      <i class="fas fa-sim-card"></i>
-      <h1>SIM Info <span>Mudasir DB</span></h1>
-      <div class="badge">
-        <i class="fas fa-bolt"></i> Live API
+<div class="card">
+  <div class="header">
+    <i class="fas fa-sim-card main-icon"></i>
+    <h1>SIM Info <span>Mudasir DB</span></h1>
+    <div class="badge"><i class="fas fa-bolt"></i> Live</div>
+  </div>
+
+  <!-- LOGIN -->
+  <div class="screen active" id="loginScreen">
+    <i class="fas fa-shield-halved pending-icon" style="color:#3d82ff;"></i>
+    <h2>Welcome Back</h2>
+    <p>Google account se login karo SIM Info use karne ke liye.</p>
+    <button class="google-btn" id="googleLoginBtn">
+      <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="G">
+      Sign in with Google
+    </button>
+  </div>
+
+  <!-- PENDING -->
+  <div class="screen" id="pendingScreen">
+    <i class="fas fa-hourglass-half pending-icon" id="pendingIcon"></i>
+    <h2 id="pendingTitle">Approval Pending</h2>
+    <p id="pendingMsg">Aapki request admin ke paas bhej di gayi hai.<br>Admin approve karega tab service milegi.</p>
+    <button class="google-btn" id="logoutPendingBtn" style="background:#2a1414; color:#ff8a8a;">
+      <i class="fas fa-right-from-bracket"></i> Logout
+    </button>
+  </div>
+
+  <!-- MAIN -->
+  <div class="screen" id="mainScreen">
+    <div class="user-bar">
+      <div class="user-info">
+        <img id="userPhoto" src="" alt="">
+        <div>
+          <div class="name" id="userName">User</div>
+          <div class="email" id="userEmail">user@email.com</div>
+        </div>
+      </div>
+      <div style="display:flex; align-items:center; gap:0.8rem; flex-wrap:wrap;">
+        <span class="time-left" id="timeLeftBadge">--</span>
+        <div class="notif-bell" id="notifBell">
+          <i class="fas fa-bell"></i>
+          <span class="dot" id="notifDot" style="display:none;">0</span>
+        </div>
+        <button class="logout-btn" id="logoutBtn"><i class="fas fa-right-from-bracket"></i> Logout</button>
       </div>
     </div>
 
-    <!-- Search Section -->
-    <div class="search-section">
-      <div class="input-group">
-        <i class="fas fa-phone-alt"></i>
-        <input type="tel" id="numberInput" placeholder="e.g. 03046754893" value="03046754893" maxlength="15" autocomplete="off">
-        <button id="searchBtn">
-          <i class="fas fa-search"></i> <span>Search</span>
-        </button>
+    <!-- TABS -->
+    <div class="tabs">
+      <div class="tab active" data-tab="search"><i class="fas fa-search"></i> Search</div>
+      <div class="tab" data-tab="history"><i class="fas fa-history"></i> History</div>
+    </div>
+
+    <!-- SEARCH TAB -->
+    <div id="searchTab">
+      <div class="search-section">
+        <div class="input-group">
+          <i class="fas fa-phone-alt"></i>
+          <input type="tel" id="numberInput" placeholder="e.g. 03046754893" maxlength="15" autocomplete="off">
+          <button id="searchBtn"><i class="fas fa-search"></i> <span>Search</span></button>
+        </div>
+        <div class="note"><i class="fas fa-database"></i> Data fetched from Wasif Ali's public API</div>
       </div>
-      <div class="note">
-        <i class="fas fa-database"></i> Data fetched from Wasif Ali's public API · set via Mudasir Database
+      <div class="result-container" id="resultContainer">
+        <div class="empty-state"><i class="fas fa-id-card"></i><p>Enter a number &amp; press search</p></div>
       </div>
     </div>
 
-    <!-- Result Container -->
-    <div class="result-container" id="resultContainer">
-      <!-- Default: show placeholder or start state -->
-      <div class="empty-state" id="emptyState">
-        <i class="fas fa-id-card"></i>
-        <p>Enter a mobile number &amp; press search</p>
+    <!-- HISTORY TAB -->
+    <div id="historyTab" style="display:none;">
+      <div class="result-container">
+        <div class="result-header">
+          <span><i class="fas fa-history"></i> Aapki Search History</span>
+          <span style="color:#4a5f80; font-size:0.7rem;" id="histCount">0 records</span>
+        </div>
+        <div class="history-list" id="historyList">
+          <div class="empty-state"><i class="fas fa-clock-rotate-left"></i><p>No search history yet</p></div>
+        </div>
       </div>
-    </div>
-
-    <!-- Footer -->
-    <div class="footer">
-      <span><i class="fas fa-code"></i> Developer: <strong>WASIF ALI</strong></span>
-      <span>
-        <i class="fab fa-telegram"></i> 
-        <a href="https://t.me/+zLVbS12-FxMyMmM0" target="_blank">@FREEHACKS95</a>
-      </span>
     </div>
   </div>
 
-  <script>
-    (function() {
-      const API_BASE = 'https://wasifali.biz.id/public_apis/sim-info-api.php?search=';
-      const numberInput = document.getElementById('numberInput');
-      const searchBtn = document.getElementById('searchBtn');
-      const resultContainer = document.getElementById('resultContainer');
+  <div class="footer">
+    <span><i class="fas fa-code"></i> Dev: <strong>WASIF ALI</strong></span>
+    <span><i class="fab fa-telegram"></i> <a href="https://t.me/+zLVbS12-FxMyMmM0" target="_blank">@FREEHACKS95</a></span>
+  </div>
+</div>
 
-      // Helper to show loading
-      function showLoading() {
-        resultContainer.innerHTML = `
-          <div class="loader">
-            <div class="loader-spinner"></div>
-            <span>Fetching SIM details…</span>
-          </div>
-        `;
-      }
+<!-- NOTIF PANEL -->
+<div class="notif-panel" id="notifPanel">
+  <h3>Notifications <i class="fas fa-times" id="closeNotif"></i></h3>
+  <div id="notifList"><div class="notif-empty">No notifications yet</div></div>
+</div>
 
-      // Helper to show error
-      function showError(message) {
-        resultContainer.innerHTML = `
-          <div class="error-msg">
-            <i class="fas fa-exclamation-triangle"></i>
-            <span>${escapeHtml(message) || 'Failed to fetch data. Check number or try again.'}</span>
-          </div>
-        `;
-      }
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged }
+  from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+import { getFirestore, doc, getDoc, setDoc, collection, query, where, onSnapshot, addDoc, serverTimestamp, orderBy, limit }
+  from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-      // escape HTML to prevent XSS
-      function escapeHtml(text) {
-        if (!text) return '';
-        const div = document.createElement('div');
-        div.textContent = text;
-        return div.innerHTML;
-      }
+// 🔥 AAPKA CONFIG
+const firebaseConfig = {
+  apiKey: "AIzaSyB3st8UdoMAQqWR88JhaeX77Fk3bH-FGug",
+  authDomain: "mudasir-sim-info.firebaseapp.com",
+  projectId: "mudasir-sim-info",
+  storageBucket: "mudasir-sim-info.firebasestorage.app",
+  messagingSenderId: "618431790054",
+  appId: "1:618431790054:web:97f1d31afc8528aa5cb427",
+  measurementId: "G-K9KTGFBT1R"
+};
 
-      // Render records beautifully
-      function renderRecords(data) {
-        if (!data || data.success !== true || !data.records || data.records.length === 0) {
-          resultContainer.innerHTML = `
-            <div class="empty-state">
-              <i class="fas fa-user-slash"></i>
-              <p>No records found for this number.</p>
-            </div>
-          `;
+const ADMIN_EMAIL = "malikmudasirkhar001@gmail.com";
+const API_BASE = 'https://wasifali.biz.id/public_apis/sim-info-api.php?search=';
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+const provider = new GoogleAuthProvider();
+
+// DOM
+const loginScreen = document.getElementById('loginScreen');
+const pendingScreen = document.getElementById('pendingScreen');
+const mainScreen = document.getElementById('mainScreen');
+const googleLoginBtn = document.getElementById('googleLoginBtn');
+const logoutBtn = document.getElementById('logoutBtn');
+const logoutPendingBtn = document.getElementById('logoutPendingBtn');
+const userPhoto = document.getElementById('userPhoto');
+const userName = document.getElementById('userName');
+const userEmail = document.getElementById('userEmail');
+const timeLeftBadge = document.getElementById('timeLeftBadge');
+const notifBell = document.getElementById('notifBell');
+const notifPanel = document.getElementById('notifPanel');
+const closeNotif = document.getElementById('closeNotif');
+const notifList = document.getElementById('notifList');
+const notifDot = document.getElementById('notifDot');
+const pendingTitle = document.getElementById('pendingTitle');
+const pendingMsg = document.getElementById('pendingMsg');
+const pendingIcon = document.getElementById('pendingIcon');
+const searchTab = document.getElementById('searchTab');
+const historyTab = document.getElementById('historyTab');
+const historyList = document.getElementById('historyList');
+const histCount = document.getElementById('histCount');
+const searchBtn = document.getElementById('searchBtn');
+const numberInput = document.getElementById('numberInput');
+const resultContainer = document.getElementById('resultContainer');
+
+let currentUser = null;
+let userDocUnsub = null;
+let notifUnsub = null;
+let histUnsub = null;
+let countdownInterval = null;
+
+function showScreen(name) {
+  [loginScreen, pendingScreen, mainScreen].forEach(s => s.classList.remove('active'));
+  document.getElementById(name).classList.add('active');
+}
+
+// ========== TABS ==========
+document.querySelectorAll('.tab').forEach(t => {
+  t.addEventListener('click', () => {
+    document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
+    t.classList.add('active');
+    const tabName = t.dataset.tab;
+    if (tabName === 'search') { searchTab.style.display = 'block'; historyTab.style.display = 'none'; }
+    else { searchTab.style.display = 'none'; historyTab.style.display = 'block'; }
+  });
+});
+
+// ========== LOGIN ==========
+googleLoginBtn.addEventListener('click', async () => {
+  try {
+    const result = await signInWithPopup(auth, provider);
+    await handleUserLogin(result.user);
+  } catch (e) {
+    alert('Login failed: ' + e.message);
+  }
+});
+
+logoutBtn.addEventListener('click', () => signOut(auth));
+logoutPendingBtn.addEventListener('click', () => signOut(auth));
+
+async function handleUserLogin(user) {
+  const userRef = doc(db, 'users', user.uid);
+  const snap = await getDoc(userRef);
+  const isAdmin = user.email === ADMIN_EMAIL;
+
+  if (!snap.exists()) {
+    // Naya user — request bhejo
+    await setDoc(userRef, {
+      name: user.displayName || 'User',
+      email: user.email,
+      photo: user.photoURL || '',
+      uid: user.uid,
+      status: isAdmin ? 'approved' : 'pending',
+      role: isAdmin ? 'admin' : 'user',
+      createdAt: serverTimestamp(),
+      approvedAt: isAdmin ? serverTimestamp() : null,
+      expiresAt: null,
+      duration: isAdmin ? 'lifetime' : 'none'
+    });
+
+    // Admin ko notification
+    await addDoc(collection(db, 'notifications'), {
+      toEmail: ADMIN_EMAIL,
+      forAdmin: true,
+      title: '🔔 New Account Request',
+      message: `${user.displayName || 'User'} (${user.email}) ne request bheji. Admin Panel se approve karein.`,
+      read: false,
+      createdAt: serverTimestamp()
+    });
+
+    // User ko notification
+    await addDoc(collection(db, 'notifications'), {
+      toEmail: user.email,
+      forAdmin: false,
+      title: '✅ Request Received',
+      message: 'Aapki request admin ke paas bhej di gayi. Approval ka intezaar karein.',
+      read: false,
+      createdAt: serverTimestamp()
+    });
+  }
+
+  listenUserDoc(user.uid);
+}
+
+function listenUserDoc(uid) {
+  if (userDocUnsub) userDocUnsub();
+  userDocUnsub = onSnapshot(doc(db, 'users', uid), (snap) => {
+    if (!snap.exists()) return;
+    const data = snap.data();
+    currentUser = data;
+
+    if (data.status === 'approved') {
+      // Expiry check
+      if (data.expiresAt) {
+        const expires = data.expiresAt.toDate ? data.expiresAt.toDate() : new Date(data.expiresAt);
+        if (expires.getTime() < Date.now()) {
+          timeLeftBadge.textContent = 'EXPIRED';
+          timeLeftBadge.classList.add('expired');
+          pendingIcon.className = 'fas fa-ban pending-icon';
+          pendingIcon.style.color = '#ff5252';
+          pendingTitle.textContent = 'Service Expired';
+          pendingMsg.innerHTML = 'Aapki service ka time khatam ho gaya.<br>Admin se renew karwaein.';
+          showScreen('pendingScreen');
           return;
         }
-
-        const record = data.records[0]; // show first record
-
-        // Build fields with icons
-        const fieldsHtml = `
-          <div class="field">
-            <i class="fas fa-user"></i>
-            <div class="field-content">
-              <span class="field-label">Name</span>
-              <span class="field-value">${escapeHtml(record.name || '—')}</span>
-            </div>
-          </div>
-          <div class="field">
-            <i class="fas fa-mobile-alt"></i>
-            <div class="field-content">
-              <span class="field-label">Mobile</span>
-              <span class="field-value">${escapeHtml(record.mobile || '—')}</span>
-            </div>
-          </div>
-          <div class="field">
-            <i class="fas fa-id-card"></i>
-            <div class="field-content">
-              <span class="field-label">CNIC</span>
-              <span class="field-value">${escapeHtml(record.cnic || '—')}</span>
-            </div>
-          </div>
-          <div class="field">
-            <i class="fas fa-map-pin"></i>
-            <div class="field-content">
-              <span class="field-label">Address</span>
-              <span class="field-value">${escapeHtml(record.address || '—')}</span>
-            </div>
-          </div>
-          <div class="field">
-            <i class="fas fa-wifi"></i>
-            <div class="field-content">
-              <span class="field-label">Network</span>
-              <span class="field-value">${escapeHtml(record.network || '—')}</span>
-            </div>
-          </div>
-        `;
-
-        resultContainer.innerHTML = `
-          <div class="result-header">
-            <span><i class="fas fa-check-circle" style="color:#2ecc71; margin-right: 5px;"></i> Record found</span>
-            <div class="status-badge"><i class="fas fa-circle"></i> Active</div>
-          </div>
-          <div class="record-grid">
-            ${fieldsHtml}
-          </div>
-          <div style="margin-top: 1rem; font-size: 0.7rem; color: #3f5b83; text-align: right; border-top: 1px solid #1d2c46; padding-top: 0.7rem;">
-            <i class="fas fa-database"></i> Source: Wasif Ali API · Mudasir Database
-          </div>
-        `;
       }
+      showScreen('mainScreen');
+      userPhoto.src = data.photo || 'https://via.placeholder.com/40';
+      userName.textContent = data.name;
+      userEmail.textContent = data.email;
+      startCountdown(data.expiresAt, data.duration);
+      listenNotifications(data.email);
+      listenHistory(data.email);
+    } else if (data.status === 'pending') {
+      pendingIcon.className = 'fas fa-hourglass-half pending-icon';
+      pendingIcon.style.color = '#f5b942';
+      pendingTitle.textContent = 'Approval Pending';
+      pendingMsg.innerHTML = 'Aapki request admin ke paas hai.<br>Approve hone par service milegi.';
+      showScreen('pendingScreen');
+    } else if (data.status === 'blocked') {
+      pendingIcon.className = 'fas fa-ban pending-icon';
+      pendingIcon.style.color = '#ff5252';
+      pendingTitle.textContent = 'Account Disabled';
+      pendingMsg.innerHTML = 'Aapka account admin ne disable kar diya hai.<br>Contact: malikmudasirkhar001@gmail.com';
+      showScreen('pendingScreen');
+    }
+  });
+}
 
-      // Main fetch function
-      async function fetchSimInfo(number) {
-        if (!number || number.trim() === '') {
-          showError('Please enter a mobile number.');
-          return;
-        }
+function startCountdown(expiresAt, duration) {
+  if (countdownInterval) clearInterval(countdownInterval);
+  if (!expiresAt || duration === 'lifetime') {
+    timeLeftBadge.textContent = 'LIFETIME';
+    timeLeftBadge.classList.remove('expired');
+    return;
+  }
+  const expires = expiresAt.toDate ? expiresAt.toDate() : new Date(expiresAt);
+  const tick = () => {
+    const diff = expires.getTime() - Date.now();
+    if (diff <= 0) {
+      timeLeftBadge.textContent = 'EXPIRED';
+      timeLeftBadge.classList.add('expired');
+      clearInterval(countdownInterval);
+      return;
+    }
+    const d = Math.floor(diff / 86400000);
+    const h = Math.floor((diff % 86400000) / 3600000);
+    const m = Math.floor((diff % 3600000) / 60000);
+    const s = Math.floor((diff % 60000) / 1000);
+    timeLeftBadge.textContent = `${d}d ${h}h ${m}m ${s}s`;
+    timeLeftBadge.classList.remove('expired');
+  };
+  tick();
+  countdownInterval = setInterval(tick, 1000);
+}
 
-        // Remove any spaces or dashes
-        const cleanNumber = number.replace(/[\s\-]/g, '');
-        
-        showLoading();
+function listenNotifications(email) {
+  if (notifUnsub) notifUnsub();
+  const q = query(collection(db, 'notifications'), where('toEmail', '==', email));
+  notifUnsub = onSnapshot(q, (snap) => {
+    const items = [];
+    snap.forEach(d => items.push({ id: d.id, ...d.data() }));
+    items.sort((a, b) => (b.createdAt?.seconds || 0) - (a.createdAt?.seconds || 0));
+    const unread = items.filter(i => !i.read).length;
+    notifDot.style.display = unread > 0 ? 'flex' : 'none';
+    notifDot.textContent = unread;
+    if (items.length === 0) {
+      notifList.innerHTML = '<div class="notif-empty">No notifications yet</div>';
+      return;
+    }
+    notifList.innerHTML = items.map(n => `
+      <div class="notif-item">
+        <div class="title">${escapeHtml(n.title || '')}</div>
+        <div class="msg">${escapeHtml(n.message || '')}</div>
+        <div class="time">${n.createdAt?.toDate ? n.createdAt.toDate().toLocaleString() : ''}</div>
+      </div>`).join('');
+  });
+}
 
-        try {
-          const url = API_BASE + encodeURIComponent(cleanNumber);
-          const response = await fetch(url, {
-            method: 'GET',
-            headers: {
-              'Accept': 'application/json'
-            }
-          });
+function listenHistory(email) {
+  if (histUnsub) histUnsub();
+  const q = query(collection(db, 'history'), where('userEmail', '==', email));
+  histUnsub = onSnapshot(q, (snap) => {
+    const items = [];
+    snap.forEach(d => items.push({ id: d.id, ...d.data() }));
+    items.sort((a, b) => (b.createdAt?.seconds || 0) - (a.createdAt?.seconds || 0));
+    histCount.textContent = `${items.length} records`;
+    if (items.length === 0) {
+      historyList.innerHTML = '<div class="empty-state"><i class="fas fa-clock-rotate-left"></i><p>No search history yet</p></div>';
+      return;
+    }
+    historyList.innerHTML = items.map(h => `
+      <div class="hist-item">
+        <div>
+          <div class="num"><i class="fas fa-phone" style="color:#3d82ff; margin-right:6px;"></i>${escapeHtml(h.mobile || '')}</div>
+          <div class="name">${escapeHtml(h.name || 'Unknown')}</div>
+        </div>
+        <div class="date">${h.createdAt?.toDate ? h.createdAt.toDate().toLocaleString() : ''}</div>
+      </div>`).join('');
+  });
+}
 
-          if (!response.ok) {
-            throw new Error(`HTTP ${response.status} — ${response.statusText}`);
-          }
+notifBell.addEventListener('click', () => notifPanel.classList.add('open'));
+closeNotif.addEventListener('click', () => notifPanel.classList.remove('open'));
 
-          const data = await response.json();
-          renderRecords(data);
-        } catch (error) {
-          console.error('Fetch error:', error);
-          showError(`Network error: ${error.message}. Please try again.`);
-        }
-      }
+onAuthStateChanged(auth, async (user) => {
+  if (!user) {
+    currentUser = null;
+    showScreen('loginScreen');
+    if (userDocUnsub) userDocUnsub();
+    if (notifUnsub) notifUnsub();
+    if (histUnsub) histUnsub();
+    if (countdownInterval) clearInterval(countdownInterval);
+    return;
+  }
+  await handleUserLogin(user);
+});
 
-      // Trigger search on button click
-      searchBtn.addEventListener('click', function(e) {
-        e.preventDefault();
-        const number = numberInput.value.trim();
-        fetchSimInfo(number);
+// ========== HELPERS ==========
+function escapeHtml(t) {
+  if (!t) return '';
+  const d = document.createElement('div'); d.textContent = t; return d.innerHTML;
+}
+function parseSafeJSON(raw) {
+  try { return JSON.parse(raw); } catch(e) {}
+  const s = raw.indexOf('{'), e = raw.lastIndexOf('}');
+  if (s !== -1 && e > s) { try { return JSON.parse(raw.substring(s, e + 1)); } catch(e) {} }
+  throw new Error('Invalid JSON response');
+}
+function showLoading() {
+  resultContainer.innerHTML = `<div class="loader"><div class="loader-spinner"></div><span>Fetching…</span></div>`;
+}
+function showError(msg) {
+  resultContainer.innerHTML = `<div class="error-msg"><i class="fas fa-exclamation-triangle"></i><span>${escapeHtml(msg)}</span></div>`;
+}
+
+async function fetchSimInfo(number) {
+  if (!number || !number.trim()) { showError('Please enter a mobile number.'); return; }
+  if (!currentUser || currentUser.status !== 'approved') { showError('Account not approved.'); return; }
+  const clean = number.replace(/[\s\-]/g, '');
+  showLoading();
+  try {
+    const res = await fetch(API_BASE + encodeURIComponent(clean));
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const raw = await res.text();
+    const data = parseSafeJSON(raw);
+    renderRecords(data);
+
+    // ✅ Save to history
+    if (data && data.success === true && data.records && data.records.length > 0) {
+      const r = data.records[0];
+      await addDoc(collection(db, 'history'), {
+        userEmail: currentUser.email,
+        userUid: currentUser.uid,
+        userName: currentUser.name,
+        mobile: clean,
+        name: r.name || '',
+        cnic: r.cnic || '',
+        address: r.address || '',
+        network: r.network || '',
+        createdAt: serverTimestamp()
       });
+    }
+  } catch (err) {
+    showError(`Error: ${err.message}`);
+  }
+}
 
-      // Trigger search on pressing Enter in input
-      numberInput.addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') {
-          e.preventDefault();
-          const number = numberInput.value.trim();
-          fetchSimInfo(number);
-        }
-      });
+function renderRecords(data) {
+  if (!data || data.success !== true || !data.records || data.records.length === 0) {
+    resultContainer.innerHTML = `<div class="empty-state"><i class="fas fa-user-slash"></i><p>No records found.</p></div>`;
+    return;
+  }
+  const r = data.records[0];
+  const f = (icon, label, val) => `
+    <div class="field">
+      <i class="fas ${icon}"></i>
+      <div class="field-content">
+        <span class="field-label">${label}</span>
+        <span class="field-value">${escapeHtml(val || '—')}</span>
+      </div>
+    </div>`;
+  resultContainer.innerHTML = `
+    <div class="result-header">
+      <span><i class="fas fa-check-circle" style="color:#2ecc71;margin-right:5px;"></i> Record found</span>
+      <div class="status-badge"><i class="fas fa-circle"></i> Active</div>
+    </div>
+    <div class="record-grid">
+      ${f('fa-user','Name',r.name)}
+      ${f('fa-mobile-alt','Mobile',r.mobile)}
+      ${f('fa-id-card','CNIC',r.cnic)}
+      ${f('fa-map-pin','Address',r.address)}
+      ${f('fa-wifi','Network',r.network)}
+    </div>`;
+}
 
-      // Auto-fetch the default number on page load (optional)
-      window.addEventListener('load', function() {
-        // Small delay to show UI ready
-        setTimeout(() => {
-          const defaultNum = numberInput.value.trim();
-          if (defaultNum) {
-            fetchSimInfo(defaultNum);
-          }
-        }, 150);
-      });
-    })();
-  </script>
+searchBtn.addEventListener('click', (e) => { e.preventDefault(); fetchSimInfo(numberInput.value.trim()); });
+numberInput.addEventListener('keypress', (e) => {
+  if (e.key === 'Enter') { e.preventDefault(); fetchSimInfo(numberInput.value.trim()); }
+});
+</script>
 </body>
 </html>
