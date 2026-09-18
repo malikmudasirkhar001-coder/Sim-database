@@ -2,208 +2,136 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admin Panel · Mudasir Abbas</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Admin · Mudasir Abbas Database</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <style>
-  * { margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI',Roboto,sans-serif; }
-  body { background:linear-gradient(145deg,#0b0f1c,#1a1f33); min-height:100vh; color:#eaf1ff; padding:1.5rem; }
-  .container { max-width:1300px; margin:0 auto; }
-  .topbar { display:flex; justify-content:space-between; align-items:center; background:rgba(20,25,45,0.9); border-radius:1.8rem; padding:1rem 1.5rem; margin-bottom:1.5rem; border:1px solid rgba(80,140,255,0.25); flex-wrap:wrap; gap:1rem; }
-  .topbar h1 { font-size:1.3rem; background:linear-gradient(90deg,#4f9eff,#2a8cff); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; display:flex; align-items:center; gap:0.6rem; }
-  .topbar h1 i { -webkit-text-fill-color:#4f9eff; }
-  .topbar h1 span { font-size:0.65rem; background:linear-gradient(135deg,#254a7a,#1f5ed6); padding:0.25rem 0.7rem; border-radius:20px; color:#fff; -webkit-text-fill-color:#fff; border:1px solid #4d8cff; }
-  .topbar .info { display:flex; align-items:center; gap:0.9rem; flex-wrap:wrap; }
-  .topbar .info img { width:38px; height:38px; border-radius:50%; border:2px solid #3d82ff; }
-  .topbar .info .admin-email { font-size:0.78rem; color:#8fa9d0; background:#0b101f; padding:0.4rem 0.9rem; border-radius:20px; border:1px solid #263b60; }
-  .logout-btn { background:linear-gradient(135deg,#3a1414,#5a2020); color:#ff8a8a; border:1px solid #5a2020; border-radius:2rem; padding:0.55rem 1.2rem; font-size:0.78rem; font-weight:600; cursor:pointer; display:flex; align-items:center; gap:0.4rem; }
-  .stats { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:0.9rem; margin-bottom:1.5rem; }
-  .stat { background:linear-gradient(135deg,rgba(20,25,45,0.95),rgba(15,20,40,0.9)); border-radius:1.5rem; padding:1.1rem 1.2rem; border:1px solid rgba(80,140,255,0.2); position:relative; overflow:hidden; }
-  .stat::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg,#1f5ed6,#4f9eff); }
-  .stat.green::before { background:linear-gradient(90deg,#1e7a44,#2ecc71); }
-  .stat.yellow::before { background:linear-gradient(90deg,#7a5e1e,#f5b942); }
-  .stat.red::before { background:linear-gradient(90deg,#7a1e1e,#ff5252); }
-  .stat .num { font-size:1.9rem; font-weight:800; color:#4f9eff; }
-  .stat.green .num { color:#2ecc71; }
-  .stat.yellow .num { color:#f5b942; }
-  .stat.red .num { color:#ff5252; }
-  .stat .lbl { color:#8fa9d0; font-size:0.7rem; margin-top:0.3rem; text-transform:uppercase; letter-spacing:1px; font-weight:600; }
-  .stat .icon-bg { position:absolute; right:-10px; bottom:-10px; font-size:4rem; color:rgba(79,158,255,0.08); }
-  .tabs { display:flex; gap:0.5rem; margin-bottom:1.5rem; flex-wrap:wrap; }
-  .tab { background:rgba(20,25,45,0.9); color:#8fa9d0; border:1px solid #263b60; border-radius:2rem; padding:0.7rem 1.4rem; cursor:pointer; font-weight:600; font-size:0.82rem; display:flex; align-items:center; gap:0.4rem; }
-  .tab.active { background:linear-gradient(135deg,#1f5ed6,#0e3b9e); color:white; border-color:#4d8cff; box-shadow:0 8px 20px rgba(31,94,214,0.4); }
-  .panel { display:none; }
-  .panel.active { display:block; animation:fadeIn 0.3s ease; }
-  @keyframes fadeIn { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
-  .panel-header { background:rgba(20,25,45,0.9); border-radius:1.5rem; padding:1rem 1.4rem; margin-bottom:1rem; border:1px solid rgba(80,140,255,0.2); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.8rem; }
-  .panel-header h2 { font-size:1rem; color:#eaf1ff; display:flex; align-items:center; gap:0.5rem; }
-  .panel-header h2 i { color:#4f9eff; }
-  .search-box { background:#0b101f; border:1px solid #2b3f66; border-radius:2rem; padding:0.6rem 1.1rem; color:#fff; font-size:0.82rem; outline:none; min-width:240px; }
-  .search-box:focus { border-color:#3d82ff; }
-  .user-list { display:grid; gap:0.8rem; }
-  .user-card { background:linear-gradient(135deg,rgba(20,25,45,0.95),rgba(15,20,40,0.9)); border-radius:1.3rem; padding:1rem 1.2rem; border:1px solid rgba(80,140,255,0.2); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem; border-left:4px solid #2c6ed4; }
-  .user-card.pending { border-left-color:#f5b942; }
-  .user-card.approved { border-left-color:#2ecc71; }
-  .user-card.blocked { border-left-color:#ff5252; }
-  .user-card .uinfo { display:flex; align-items:center; gap:0.8rem; flex:1; min-width:220px; }
-  .user-card .uinfo img { width:44px; height:44px; border-radius:50%; border:2px solid #3d82ff; }
-  .user-card .uinfo .uname { font-weight:700; color:#eaf1ff; font-size:0.92rem; display:flex; align-items:center; gap:0.4rem; }
-  .user-card .uinfo .uname .crown { color:#f5b942; font-size:0.75rem; }
-  .user-card .uinfo .uemail { color:#8fa9d0; font-size:0.72rem; margin-top:0.15rem; word-break:break-all; }
-  .user-card .ustatus { display:inline-block; padding:0.2rem 0.75rem; border-radius:20px; font-size:0.65rem; font-weight:700; text-transform:uppercase; margin-top:0.35rem; }
-  .user-card .ustatus.pending { background:#3a2e10; color:#f5b942; border:1px solid #7a5e1e; }
-  .user-card .ustatus.approved { background:#103a20; color:#7ee0a8; border:1px solid #1e5a35; }
-  .user-card .ustatus.blocked { background:#3a1414; color:#ff8a8a; border:1px solid #5a2020; }
-  .user-card .uactions { display:flex; gap:0.4rem; flex-wrap:wrap; }
-  .btn { border:none; border-radius:1.5rem; padding:0.55rem 0.95rem; font-size:0.72rem; font-weight:700; cursor:pointer; display:inline-flex; align-items:center; gap:0.35rem; white-space:nowrap; }
-  .btn-approve { background:linear-gradient(135deg,#1e7a44,#0e5a2a); color:#fff; border:1px solid #2ecc71; }
-  .btn-block { background:linear-gradient(135deg,#7a1e1e,#5a0e0e); color:#fff; border:1px solid #ff5252; }
-  .btn-view { background:linear-gradient(135deg,#1f5ed6,#0e3b9e); color:#fff; border:1px solid #4d8cff; }
-  .btn-delete { background:#2a1414; color:#ff8a8a; border:1px solid #5a2020; padding:0.55rem 0.75rem; }
-  .empty-state { text-align:center; color:#4a5f80; padding:3rem 1rem; }
-  .empty-state i { font-size:3rem; color:#25427a; margin-bottom:1rem; display:block; }
-  .notif-list { display:grid; gap:0.7rem; }
-  .notif-item { background:linear-gradient(135deg,rgba(20,25,45,0.95),rgba(15,20,40,0.9)); border-radius:1.2rem; padding:1rem 1.2rem; border-left:4px solid #3d82ff; }
-  .notif-item .ntitle { font-weight:700; color:#eaf1ff; font-size:0.9rem; margin-bottom:0.3rem; }
-  .notif-item .nmsg { color:#8fa9d0; font-size:0.8rem; line-height:1.5; }
-  .notif-item .nemail { color:#5b7ba0; font-size:0.7rem; margin-top:0.4rem; }
-  .notif-item .ntime { color:#4a5f80; font-size:0.68rem; margin-top:0.3rem; }
-  .hist-item { background:linear-gradient(135deg,rgba(20,25,45,0.95),rgba(15,20,40,0.9)); border-radius:1.2rem; padding:0.9rem 1.2rem; margin-bottom:0.55rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.6rem; border-left:3px solid #2c6ed4; }
-  .hist-item .hnum { color:#eaf1ff; font-weight:700; font-size:0.9rem; }
-  .hist-item .hname { color:#7f9bcb; font-size:0.72rem; margin-top:0.15rem; }
-  .hist-item .huser { color:#5b7ba0; font-size:0.68rem; margin-top:0.15rem; word-break:break-all; }
-  .hist-item .hdate { color:#4a5f80; font-size:0.68rem; text-align:right; }
-  .screen { display:none; text-align:center; padding:2rem 1rem; }
-  .screen.active { display:block; }
-  .screen h2 { color:#eef5ff; font-size:1.5rem; margin-bottom:0.8rem; }
-  .screen p { color:#8fa9d0; font-size:0.92rem; margin-bottom:1.5rem; line-height:1.6; }
-  
-  /* 3D ADMIN LOGIN */
-  .login-3d { perspective:1000px; max-width:480px; margin:4rem auto 0; }
-  .login-3d .box { background:rgba(20,25,45,0.95); border-radius:2rem; padding:2.5rem 1.5rem; border:1px solid rgba(80,140,255,0.3); box-shadow:0 30px 60px rgba(0,0,0,0.7); position:relative; overflow:hidden; }
-  .logo-3d {
-    width:100px; height:100px; margin:0 auto 1.5rem;
-    background:linear-gradient(135deg,#4f9eff,#1f5ed6,#0a3a9e);
-    border-radius:1.8rem; display:flex; align-items:center; justify-content:center;
-    font-size:3rem; color:#fff;
-    box-shadow: 0 20px 40px rgba(31,94,214,0.5), 0 0 60px rgba(79,158,255,0.4);
-    animation: logoFloat3D 4s ease-in-out infinite;
-  }
-  @keyframes logoFloat3D {
-    0%,100% { transform: rotateX(0deg) rotateY(0deg) translateY(0); }
-    25% { transform: rotateX(-8deg) rotateY(12deg) translateY(-8px); }
-    50% { transform: rotateX(0deg) rotateY(0deg) translateY(-12px); }
-    75% { transform: rotateX(8deg) rotateY(-12deg) translateY(-8px); }
-  }
-  .name-3d {
-    display:inline-block; margin:0.5rem 0 0.5rem;
-    font-size:1.8rem; font-weight:900; letter-spacing:2px;
-    background:linear-gradient(135deg,#4f9eff 0%,#a5c9ff 30%,#fff 50%,#a5c9ff 70%,#4f9eff 100%);
-    background-size:200% auto;
-    -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
-    filter: drop-shadow(0 0 20px rgba(79,158,255,0.6));
-    animation: nameShine 3s linear infinite, nameFloat 3.5s ease-in-out infinite;
-  }
-  @keyframes nameShine { to { background-position:200% center; } }
-  @keyframes nameFloat {
-    0%,100% { transform: translateZ(0); }
-    50% { transform: translateZ(15px); }
-  }
-  .name-sub { display:block; font-size:0.7rem; color:#8fa9d0; letter-spacing:4px; text-transform:uppercase; margin-bottom:1.5rem; font-weight:600; animation:subFade 3s ease-in-out infinite; }
-  @keyframes subFade { 0%,100%{opacity:0.6;} 50%{opacity:1;} }
-  .google-btn-3d {
-    background:linear-gradient(135deg,#ffffff,#e8f0ff); color:#1a1f33;
-    border:none; border-radius:4rem; padding:1rem 2rem; font-weight:700; font-size:0.95rem;
-    display:inline-flex; align-items:center; gap:0.7rem; cursor:pointer;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.5), 0 10px 0 rgba(100,140,220,0.4);
-    transition:all 0.15s ease;
-  }
-  .google-btn-3d:hover { transform: translateY(-3px); }
-  .google-btn-3d:active { transform: translateY(5px); box-shadow: 0 8px 20px rgba(0,0,0,0.4), 0 4px 0 rgba(100,140,220,0.4); }
-  .google-btn-3d img { width:22px; height:22px; }
-  
-  .loading-spinner { width:40px; height:40px; border:4px solid #1d3155; border-top:4px solid #3b7eff; border-radius:50%; animation:spin 0.9s linear infinite; margin:0 auto 1rem; }
-  @keyframes spin { to { transform:rotate(360deg); } }
-  .loading-box { text-align:center; padding:3rem 1rem; }
-  .error-icon { font-size:4rem; color:#ff5252; margin-bottom:1rem; }
-
-  .modal-backdrop { position:fixed; inset:0; background:rgba(0,0,0,0.8); backdrop-filter:blur(8px); z-index:1000; display:none; align-items:center; justify-content:center; padding:1rem; }
-  .modal-backdrop.open { display:flex; }
-  .modal { background:linear-gradient(135deg,#0d1424,#0b101f); border-radius:2rem; padding:1.5rem; max-width:560px; width:100%; border:1px solid #2b3f66; max-height:90vh; overflow-y:auto; }
-  .modal h3 { color:#eaf1ff; margin-bottom:1rem; display:flex; justify-content:space-between; align-items:center; font-size:1.1rem; }
-  .modal h3 i { cursor:pointer; color:#8fa9d0; padding:0.4rem; }
-  .modal .field { background:#0e1527; border-radius:1rem; padding:0.7rem 1rem; margin-bottom:0.55rem; border-left:3px solid #2c6ed4; }
-  .modal .field .lbl { font-size:0.68rem; color:#7f9bcb; text-transform:uppercase; letter-spacing:0.5px; font-weight:600; }
-  .modal .field .val { font-weight:600; color:#eaf1ff; font-size:0.92rem; margin-top:0.2rem; word-break:break-word; }
-  .modal .section-title { color:#8fa9d0; font-size:0.75rem; text-transform:uppercase; letter-spacing:1px; margin:1.1rem 0 0.7rem; border-top:1px solid #1f3150; padding-top:1rem; font-weight:700; }
-  .duration-options { display:grid; grid-template-columns:repeat(auto-fit,minmax(85px,1fr)); gap:0.5rem; margin-bottom:1rem; }
-  .dur-btn { background:#131c30; color:#8fa9d0; border:1px solid #263b60; border-radius:1rem; padding:0.7rem 0.5rem; cursor:pointer; font-size:0.78rem; font-weight:700; text-align:center; }
-  .dur-btn.active { background:linear-gradient(135deg,#1f5ed6,#0e3b9e); color:#fff; border-color:#4d8cff; }
-  .modal-actions { display:flex; gap:0.6rem; margin-top:1rem; flex-wrap:wrap; }
-  .modal-actions .btn { flex:1; justify-content:center; padding:0.8rem 1rem; font-size:0.82rem; }
-  .modal-profile { display:flex; align-items:center; gap:1rem; margin-bottom:1rem; padding-bottom:1rem; border-bottom:1px solid #1f3150; }
-  .modal-profile img { width:60px; height:60px; border-radius:50%; border:3px solid #3d82ff; }
-  .broadcast-input { width:100%; background:#0b101f; border:1px solid #2b3f66; border-radius:1rem; padding:0.8rem 1rem; color:#fff; outline:none; font-size:0.88rem; margin-bottom:0.8rem; }
-  @media (max-width:600px){ 
-    body{padding:1rem;} 
-    .topbar h1{font-size:1.05rem;} 
-    .topbar .info .admin-email{display:none;}
-    .user-card{flex-direction:column; align-items:flex-start;} 
-    .search-box{min-width:100%;}
-  }
+  *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Roboto,sans-serif}
+  body{background:linear-gradient(145deg,#0b0f1c,#1a1f33);min-height:100vh;color:#eaf1ff;padding:1rem}
+  .container{max-width:1300px;margin:0 auto}
+  .topbar{display:flex;justify-content:space-between;align-items:center;background:rgba(20,25,45,0.9);border-radius:1.5rem;padding:0.9rem 1.3rem;margin-bottom:1.2rem;border:1px solid rgba(80,140,255,0.25);flex-wrap:wrap;gap:0.7rem}
+  .topbar h1{font-size:1.1rem;background:linear-gradient(90deg,#4f9eff,#2a8cff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;display:flex;align-items:center;gap:0.5rem}
+  .topbar h1 i{-webkit-text-fill-color:#4f9eff}
+  .topbar h1 span{font-size:0.6rem;background:linear-gradient(135deg,#254a7a,#1f5ed6);padding:0.2rem 0.65rem;border-radius:20px;color:#fff;-webkit-text-fill-color:#fff}
+  .topbar .info{display:flex;align-items:center;gap:0.7rem;flex-wrap:wrap}
+  .topbar .info .admin-email{font-size:0.72rem;color:#8fa9d0;background:#0b101f;padding:0.35rem 0.8rem;border-radius:20px;border:1px solid #263b60}
+  .logout-btn{background:linear-gradient(135deg,#3a1414,#5a2020);color:#ff8a8a;border:1px solid #5a2020;border-radius:2rem;padding:0.5rem 1rem;font-size:0.72rem;font-weight:600;cursor:pointer}
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:0.7rem;margin-bottom:1.2rem}
+  .stat{background:linear-gradient(135deg,rgba(20,25,45,0.95),rgba(15,20,40,0.9));border-radius:1.2rem;padding:1rem;border:1px solid rgba(80,140,255,0.2);position:relative;overflow:hidden}
+  .stat::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#1f5ed6,#4f9eff)}
+  .stat.green::before{background:linear-gradient(90deg,#1e7a44,#2ecc71)}
+  .stat.yellow::before{background:linear-gradient(90deg,#7a5e1e,#f5b942)}
+  .stat.red::before{background:linear-gradient(90deg,#7a1e1e,#ff5252)}
+  .stat .num{font-size:1.6rem;font-weight:800;color:#4f9eff}
+  .stat.green .num{color:#2ecc71}
+  .stat.yellow .num{color:#f5b942}
+  .stat.red .num{color:#ff5252}
+  .stat .lbl{color:#8fa9d0;font-size:0.65rem;margin-top:0.2rem;text-transform:uppercase;letter-spacing:1px}
+  .stat .icon-bg{position:absolute;right:-8px;bottom:-8px;font-size:3rem;color:rgba(79,158,255,0.08)}
+  .tabs{display:flex;gap:0.4rem;margin-bottom:1.2rem;flex-wrap:wrap}
+  .tab{background:rgba(20,25,45,0.9);color:#8fa9d0;border:1px solid #263b60;border-radius:2rem;padding:0.6rem 1.2rem;cursor:pointer;font-weight:600;font-size:0.78rem;display:flex;align-items:center;gap:0.35rem}
+  .tab.active{background:linear-gradient(135deg,#1f5ed6,#0e3b9e);color:#fff;border-color:#4d8cff}
+  .panel{display:none}.panel.active{display:block}
+  .panel-header{background:rgba(20,25,45,0.9);border-radius:1.3rem;padding:0.9rem 1.2rem;margin-bottom:0.9rem;border:1px solid rgba(80,140,255,0.2);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.6rem}
+  .panel-header h2{font-size:0.92rem;color:#eaf1ff;display:flex;align-items:center;gap:0.4rem}
+  .panel-header h2 i{color:#4f9eff}
+  .search-box{background:#0b101f;border:1px solid #2b3f66;border-radius:2rem;padding:0.55rem 1rem;color:#fff;font-size:0.78rem;outline:none;min-width:220px}
+  .user-list{display:grid;gap:0.7rem}
+  .user-card{background:linear-gradient(135deg,rgba(20,25,45,0.95),rgba(15,20,40,0.9));border-radius:1.2rem;padding:0.9rem 1.1rem;border:1px solid rgba(80,140,255,0.2);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.8rem;border-left:4px solid #2c6ed4}
+  .user-card.pending{border-left-color:#f5b942}
+  .user-card.approved{border-left-color:#2ecc71}
+  .user-card.blocked{border-left-color:#ff5252}
+  .user-card.deleted{border-left-color:#666;opacity:0.7}
+  .user-card .uinfo{display:flex;align-items:center;gap:0.7rem;flex:1;min-width:200px}
+  .user-card .uinfo .uavatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#3d82ff,#1f5ed6);display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;font-size:1rem;overflow:hidden}
+  .user-card .uinfo .uavatar img{width:100%;height:100%;object-fit:cover}
+  .user-card .uinfo .uname{font-weight:700;color:#eaf1ff;font-size:0.85rem}
+  .user-card .uinfo .uemail{color:#8fa9d0;font-size:0.68rem;margin-top:0.1rem;word-break:break-all}
+  .user-card .uinfo .ustatus{display:inline-block;padding:0.15rem 0.6rem;border-radius:20px;font-size:0.6rem;font-weight:700;text-transform:uppercase;margin-top:0.25rem}
+  .ustatus.pending{background:#3a2e10;color:#f5b942;border:1px solid #7a5e1e}
+  .ustatus.approved{background:#103a20;color:#7ee0a8;border:1px solid #1e5a35}
+  .ustatus.blocked{background:#3a1414;color:#ff8a8a;border:1px solid #5a2020}
+  .ustatus.deleted{background:#333;color:#999;border:1px solid #555}
+  .user-card .uactions{display:flex;gap:0.35rem;flex-wrap:wrap}
+  .btn{border:none;border-radius:1.4rem;padding:0.5rem 0.85rem;font-size:0.68rem;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:0.3rem;white-space:nowrap}
+  .btn-approve{background:linear-gradient(135deg,#1e7a44,#0e5a2a);color:#fff;border:1px solid #2ecc71}
+  .btn-block{background:linear-gradient(135deg,#7a1e1e,#5a0e0e);color:#fff;border:1px solid #ff5252}
+  .btn-view{background:linear-gradient(135deg,#1f5ed6,#0e3b9e);color:#fff;border:1px solid #4d8cff}
+  .btn-delete{background:#2a1414;color:#ff8a8a;border:1px solid #5a2020;padding:0.5rem 0.7rem}
+  .empty-state{text-align:center;color:#4a5f80;padding:2.5rem 1rem}
+  .empty-state i{font-size:2.5rem;color:#25427a;margin-bottom:0.7rem;display:block}
+  .hist-item{background:linear-gradient(135deg,rgba(20,25,45,0.95),rgba(15,20,40,0.9));border-radius:1rem;padding:0.8rem 1rem;margin-bottom:0.5rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;border-left:3px solid #2c6ed4}
+  .hist-item .hnum{color:#eaf1ff;font-weight:700;font-size:0.85rem;font-family:monospace}
+  .hist-item .hname{color:#7f9bcb;font-size:0.7rem;margin-top:0.1rem}
+  .hist-item .huser{color:#5b7ba0;font-size:0.65rem;margin-top:0.1rem;word-break:break-all}
+  .hist-item .hdate{color:#4a5f80;font-size:0.65rem;text-align:right}
+  .screen{display:none;min-height:100vh;align-items:center;justify-content:center;padding:1.5rem}
+  .screen.active{display:flex}
+  .auth-card{background:rgba(20,25,45,0.95);border-radius:2rem;padding:2rem 1.6rem;max-width:420px;width:100%;border:1px solid rgba(80,140,255,0.3);box-shadow:0 30px 60px rgba(0,0,0,0.7);text-align:center}
+  .logo-3d{width:85px;height:85px;margin:0 auto 1.1rem;background:linear-gradient(135deg,#3d82ff,#1f5ed6,#0a3a9e);border-radius:1.6rem;display:flex;align-items:center;justify-content:center;font-size:2.6rem;color:#fff;box-shadow:0 20px 40px rgba(31,94,214,0.5),0 0 60px rgba(79,158,255,0.4);animation:logoFloat 4s ease-in-out infinite}
+  @keyframes logoFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+  .name-3d{display:inline-block;margin:0.2rem 0;font-size:1.5rem;font-weight:900;letter-spacing:2px;background:linear-gradient(135deg,#4f9eff 0%,#a5c9ff 30%,#fff 50%,#a5c9ff 70%,#4f9eff 100%);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:nameShine 3s linear infinite}
+  @keyframes nameShine{to{background-position:200% center}}
+  .name-sub{display:block;font-size:0.62rem;color:#8fa9d0;letter-spacing:4px;text-transform:uppercase;margin-bottom:1.2rem;font-weight:600}
+  .input-field{display:flex;align-items:center;background:#0b101f;border-radius:1rem;padding:0.25rem 0.25rem 0.25rem 1rem;border:1px solid #2b3f66;margin-bottom:0.6rem}
+  .input-field:focus-within{border-color:#3d82ff}
+  .input-field i{color:#3c7eff;font-size:0.9rem;margin-right:0.5rem}
+  .input-field input,.input-field textarea{flex:1;background:transparent;border:none;outline:none;font-size:0.88rem;padding:0.7rem 0.4rem;color:#fff;font-family:inherit;resize:vertical}
+  .input-field textarea{min-height:60px}
+  .input-field input::placeholder,.input-field textarea::placeholder{color:#6a7fa0;font-size:0.82rem}
+  .submit-btn{width:100%;background:linear-gradient(135deg,#1f5ed6,#0e3b9e);border:1px solid #4d8cff;border-radius:1rem;padding:0.8rem;color:#fff;font-weight:700;font-size:0.88rem;cursor:pointer;margin-top:0.4rem;display:flex;align-items:center;justify-content:center;gap:0.4rem}
+  .submit-btn:disabled{opacity:0.6}
+  .auth-msg{padding:0.7rem 1rem;border-radius:0.9rem;font-size:0.8rem;margin-bottom:0.6rem;display:none}
+  .auth-msg.error{background:#2a1515;color:#ff8a8a;border:1px solid #5a2020;display:block}
+  .auth-msg.success{background:#0e2a1a;color:#7ee0a8;border:1px solid #1e5a35;display:block}
+  .info-note{background:#0e1527;border-radius:1rem;padding:0.75rem 0.9rem;margin-top:0.9rem;font-size:0.72rem;color:#7f9bcb;border-left:3px solid #3d82ff;text-align:left}
+  .modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.85);backdrop-filter:blur(6px);z-index:1000;display:none;align-items:center;justify-content:center;padding:1rem}
+  .modal-backdrop.open{display:flex}
+  .modal{background:#0d1424;border-radius:1.5rem;padding:1.3rem;max-width:560px;width:100%;border:1px solid #2b3f66;max-height:90vh;overflow-y:auto}
+  .modal h3{color:#eaf1ff;margin-bottom:1rem;display:flex;justify-content:space-between;font-size:1rem}
+  .modal h3 i{cursor:pointer;color:#8fa9d0}
+  .modal .field{background:#0e1527;border-radius:0.9rem;padding:0.6rem 0.9rem;margin-bottom:0.45rem;border-left:3px solid #2c6ed4}
+  .modal .field .lbl{font-size:0.62rem;color:#7f9bcb;text-transform:uppercase;font-weight:600}
+  .modal .field .val{font-weight:600;color:#eaf1ff;font-size:0.85rem;margin-top:0.15rem;word-break:break-word}
+  .modal .section-title{color:#8fa9d0;font-size:0.7rem;text-transform:uppercase;letter-spacing:1px;margin:1rem 0 0.6rem;border-top:1px solid #1f3150;padding-top:0.9rem;font-weight:700}
+  .modal-profile{display:flex;align-items:center;gap:0.8rem;margin-bottom:0.9rem;padding-bottom:0.9rem;border-bottom:1px solid #1f3150}
+  .modal-profile .mav{width:55px;height:55px;border-radius:50%;background:linear-gradient(135deg,#3d82ff,#1f5ed6);display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;font-size:1.4rem;overflow:hidden}
+  .modal-profile .mav img{width:100%;height:100%;object-fit:cover}
+  .dur-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(80px,1fr));gap:0.4rem;margin-bottom:0.8rem}
+  .dur-btn{background:#131c30;color:#8fa9d0;border:1px solid #263b60;border-radius:0.9rem;padding:0.6rem 0.4rem;cursor:pointer;font-size:0.72rem;font-weight:700;text-align:center}
+  .dur-btn.active{background:linear-gradient(135deg,#1f5ed6,#0e3b9e);color:#fff}
+  .modal-btns{display:flex;gap:0.5rem;margin-top:0.8rem;flex-wrap:wrap}
+  .modal-btns button{flex:1;min-width:100px;padding:0.7rem;border-radius:0.9rem;font-weight:700;font-size:0.78rem;cursor:pointer;border:1px solid;display:flex;align-items:center;justify-content:center;gap:0.35rem}
+  .save{background:linear-gradient(135deg,#1e7a44,#0e5a2a);color:#fff;border-color:#2ecc71}
+  .cancel{background:#2a1414;color:#ff8a8a;border-color:#5a2020}
+  .warn{background:linear-gradient(135deg,#7a5e1e,#5a3e0e);color:#fff;border-color:#f5b942}
+  .danger{background:linear-gradient(135deg,#7a1e1e,#5a0e0e);color:#fff;border-color:#ff5252}
+  @media(max-width:600px){body{padding:0.7rem}.topbar h1{font-size:0.95rem}.user-card{flex-direction:column;align-items:flex-start}.search-box{min-width:100%}}
 </style>
 </head>
 <body>
 
-<!-- LOADING -->
-<div class="screen active" id="loadingScreen">
-  <div class="loading-box">
-    <div class="loading-spinner"></div>
-    <h2 style="color:#8fa9d0; font-size:1rem;">Checking access...</h2>
-  </div>
-</div>
-
-<!-- LOGIN -->
-<div class="screen" id="loginScreen">
-  <div class="login-3d">
-    <div class="box">
-      <div class="logo-3d"><i class="fas fa-shield-halved"></i></div>
-      <h2 style="color:#eef5ff;">Admin Login</h2>
-      <div class="name-3d">Mudasir Abbas</div>
-      <span class="name-sub">Admin Control Panel</span>
-      <p>Sign in with your Google admin account.</p>
-      <button class="google-btn-3d" id="googleLoginBtn">
-        <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="G">
-        Sign in with Google
-      </button>
+<div class="screen active" id="authScreen">
+  <div class="auth-card">
+    <div class="logo-3d"><i class="fas fa-shield-halved"></i></div>
+    <div class="name-3d">Mudasir Abbas</div>
+    <span class="name-sub">Admin Control Panel</span>
+    <div class="auth-msg" id="authMsg"></div>
+    <div class="input-field"><i class="fas fa-envelope"></i><input type="email" id="adminEmail" placeholder="Admin email"></div>
+    <div class="input-field"><i class="fas fa-lock"></i><input type="password" id="adminPassword" placeholder="Password"></div>
+    <button class="submit-btn" id="doAdminLogin"><i class="fas fa-right-to-bracket"></i> Login</button>
+    <div class="info-note">
+      <strong style="color:#4f9eff">ℹ️ Admin:</strong> <strong>malikmudasirkhar001@gmail.com</strong><br>
+      Pehli baar login pe account auto-create ho jayega.
     </div>
   </div>
 </div>
 
-<!-- DENIED -->
-<div class="screen" id="deniedScreen">
-  <div class="login-3d">
-    <div class="box">
-      <i class="fas fa-ban error-icon"></i>
-      <h2>Access Denied</h2>
-      <p id="deniedMsg">Ye admin panel sirf <strong style="color:#7ee0a8;">malikmudasirkhar001@gmail.com</strong> ke liye hai.</p>
-      <button class="google-btn-3d" id="logoutDeniedBtn" style="background:linear-gradient(135deg,#3a1414,#5a2020); color:#ff8a8a; box-shadow:0 15px 35px rgba(0,0,0,0.5), 0 10px 0 rgba(90,32,32,0.4);">
-        <i class="fas fa-right-from-bracket"></i> Logout
-      </button>
-    </div>
-  </div>
-</div>
-
-<!-- MAIN PANEL -->
-<div class="container" id="mainPanel" style="display:none;">
+<div class="container" id="mainPanel" style="display:none">
   <div class="topbar">
-    <h1><i class="fas fa-shield-halved"></i> Admin Panel <span>MUDASIR ABBAS</span></h1>
+    <h1><i class="fas fa-shield-halved"></i> Admin Panel <span>MUDASIR ABBAS DB</span></h1>
     <div class="info">
-      <img id="adminPhoto" src="" alt="">
-      <span class="admin-email" id="adminEmail">admin@email.com</span>
-      <span class="admin-email" style="background:#0e2a1a; color:#7ee0a8; border-color:#1e5a35;">
-        <i class="fas fa-crown"></i> LIFETIME
-      </span>
+      <span class="admin-email" id="adminEmailDisplay">-</span>
       <button class="logout-btn" id="logoutBtn"><i class="fas fa-right-from-bracket"></i> Logout</button>
     </div>
   </div>
@@ -211,22 +139,22 @@
   <div class="stats">
     <div class="stat"><div class="num" id="statTotal">0</div><div class="lbl">Total Users</div><i class="fas fa-users icon-bg"></i></div>
     <div class="stat yellow"><div class="num" id="statPending">0</div><div class="lbl">Pending</div><i class="fas fa-hourglass-half icon-bg"></i></div>
-    <div class="stat green"><div class="num" id="statApproved">0</div><div class="lbl">Approved</div><i class="fas fa-check-circle icon-bg"></i></div>
+    <div class="stat green"><div class="num" id="statApproved">0</div><div class="lbl">Active</div><i class="fas fa-check-circle icon-bg"></i></div>
     <div class="stat red"><div class="num" id="statBlocked">0</div><div class="lbl">Disabled</div><i class="fas fa-ban icon-bg"></i></div>
     <div class="stat"><div class="num" id="statHistory">0</div><div class="lbl">Searches</div><i class="fas fa-history icon-bg"></i></div>
   </div>
 
   <div class="tabs">
-    <div class="tab active" data-tab="users"><i class="fas fa-users"></i> All Users</div>
+    <div class="tab active" data-tab="users"><i class="fas fa-users"></i> Users</div>
     <div class="tab" data-tab="pending"><i class="fas fa-hourglass-half"></i> Pending (<span id="pendingBadge">0</span>)</div>
     <div class="tab" data-tab="history"><i class="fas fa-history"></i> History</div>
-    <div class="tab" data-tab="notifs"><i class="fas fa-bell"></i> Notifications</div>
+    <div class="tab" data-tab="scheduled"><i class="fas fa-clock"></i> Auto Notifs</div>
   </div>
 
   <div class="panel active" id="panel-users">
     <div class="panel-header">
       <h2><i class="fas fa-users"></i> All Users (<span id="userCount">0</span>)</h2>
-      <input type="text" class="search-box" id="userSearch" placeholder="🔍 Search by name / email...">
+      <input type="text" class="search-box" id="userSearch" placeholder="🔍 Search...">
     </div>
     <div class="user-list" id="userList"><div class="empty-state"><i class="fas fa-users"></i><p>No users yet</p></div></div>
   </div>
@@ -238,21 +166,25 @@
 
   <div class="panel" id="panel-history">
     <div class="panel-header">
-      <h2><i class="fas fa-history"></i> All Search History</h2>
-      <input type="text" class="search-box" id="histSearch" placeholder="🔍 Search by number / user...">
+      <h2><i class="fas fa-history"></i> All History</h2>
+      <input type="text" class="search-box" id="histSearch" placeholder="🔍 Search...">
     </div>
-    <div id="historyList"><div class="empty-state"><i class="fas fa-clock-rotate-left"></i><p>No history yet</p></div></div>
+    <div id="historyList"><div class="empty-state"><i class="fas fa-clock-rotate-left"></i><p>No history</p></div></div>
   </div>
 
-  <div class="panel" id="panel-notifs">
+  <div class="panel" id="panel-scheduled">
     <div class="panel-header">
-      <h2><i class="fas fa-bell"></i> Notifications (Admin)</h2>
-      <button class="btn btn-view" id="broadcastBtn"><i class="fas fa-paper-plane"></i> Broadcast</button>
+      <h2><i class="fas fa-clock"></i> Scheduled Auto Notifications</h2>
+      <button class="btn btn-view" id="addSchedBtn"><i class="fas fa-plus"></i> Add New</button>
     </div>
-    <div class="notif-list" id="notifList"><div class="empty-state"><i class="fas fa-bell-slash"></i><p>No notifications</p></div></div>
+    <div style="background:rgba(20,25,45,0.9);border-radius:1.2rem;padding:0.9rem 1.1rem;margin-bottom:0.9rem;border:1px solid rgba(80,140,255,0.2);font-size:0.78rem;color:#8fa9d0">
+      <i class="fas fa-info-circle" style="color:#4f9eff"></i> Daily automatic notifications. Har roz specified time pe sab users ko bhej di jayengi (jab wo online aayenge).
+    </div>
+    <div id="schedList"><div class="empty-state"><i class="fas fa-clock"></i><p>No scheduled notifications</p></div></div>
   </div>
 </div>
 
+<!-- USER DETAIL MODAL -->
 <div class="modal-backdrop" id="userModal">
   <div class="modal">
     <h3>User Details <i class="fas fa-times" id="closeModal"></i></h3>
@@ -260,20 +192,23 @@
   </div>
 </div>
 
-<div class="modal-backdrop" id="broadcastModal">
+<!-- SCHEDULE MODAL -->
+<div class="modal-backdrop" id="schedModal">
   <div class="modal">
-    <h3>📢 Broadcast to All Users <i class="fas fa-times" id="closeBroadcast"></i></h3>
-    <input type="text" class="broadcast-input" id="bcTitle" placeholder="Notification title...">
-    <textarea class="broadcast-input" id="bcMessage" rows="4" placeholder="Type your message..."></textarea>
-    <button class="btn btn-approve" id="sendBroadcast" style="width:100%; justify-content:center; padding:0.9rem; font-size:0.88rem;">
-      <i class="fas fa-paper-plane"></i> Send to All Users
-    </button>
+    <h3>New Scheduled Notification <i class="fas fa-times" id="closeSched"></i></h3>
+    <div class="input-field"><i class="fas fa-heading"></i><input type="text" id="schedTitle" placeholder="Title (e.g. Daily Welcome)"></div>
+    <div class="input-field"><i class="fas fa-comment"></i><textarea id="schedMessage" placeholder="Message body..."></textarea></div>
+    <div class="input-field"><i class="fas fa-clock"></i><input type="time" id="schedTime" value="10:00"></div>
+    <div class="modal-btns">
+      <button class="cancel" id="cancelSched"><i class="fas fa-times"></i> Cancel</button>
+      <button class="save" id="saveSched"><i class="fas fa-check"></i> Save</button>
+    </div>
   </div>
 </div>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged }
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, updateProfile }
   from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 import { getFirestore, doc, getDoc, setDoc, updateDoc, collection, onSnapshot, addDoc, deleteDoc, serverTimestamp }
   from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
@@ -289,263 +224,304 @@ const firebaseConfig = {
 };
 
 const ADMIN_EMAIL = "malikmudasirkhar001@gmail.com";
-
-// ✅ Case-insensitive compare
-function isAdminEmail(email) {
-  if (!email) return false;
-  return email.trim().toLowerCase() === ADMIN_EMAIL.trim().toLowerCase();
-}
+function isAdminEmail(email){ if(!email) return false; return email.trim().toLowerCase() === ADMIN_EMAIL.trim().toLowerCase(); }
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
-const provider = new GoogleAuthProvider();
 
-const loadingScreen = document.getElementById('loadingScreen');
-const loginScreen = document.getElementById('loginScreen');
-const deniedScreen = document.getElementById('deniedScreen');
+const authScreen = document.getElementById('authScreen');
 const mainPanel = document.getElementById('mainPanel');
+const authMsg = document.getElementById('authMsg');
 
-let allUsers = [], allHistory = [], allNotifs = [];
-let adminUnsubs = [], authHandled = false;
+let allUsers = [], allHistory = [], allSched = [];
+let unsubs = [], authHandled = false;
 
-function showScreen(id) {
-  [loadingScreen, loginScreen, deniedScreen].forEach(s => s.classList.remove('active'));
-  mainPanel.style.display = 'none';
-  if (id === 'loading') loadingScreen.classList.add('active');
-  else if (id === 'login') loginScreen.classList.add('active');
-  else if (id === 'denied') deniedScreen.classList.add('active');
-  else if (id === 'main') mainPanel.style.display = 'block';
+function showMsg(text, type){
+  authMsg.textContent = text;
+  authMsg.className = 'auth-msg ' + type;
+  setTimeout(()=>{ authMsg.className = 'auth-msg'; }, 5000);
 }
 
-document.getElementById('googleLoginBtn').onclick = async () => {
-  try { await signInWithPopup(auth, provider); } 
-  catch (e) { alert('Login failed: ' + e.message); }
+document.getElementById('doAdminLogin').onclick = async () => {
+  const email = document.getElementById('adminEmail').value.trim();
+  const password = document.getElementById('adminPassword').value;
+  if(!email || !password){ showMsg('Email aur password daalein','error'); return; }
+  if(!isAdminEmail(email)){ showMsg('Ye admin email nahi hai','error'); return; }
+  const btn = document.getElementById('doAdminLogin');
+  btn.disabled = true; btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> ...';
+  try{
+    await signInWithEmailAndPassword(auth, email, password);
+    showMsg('✅ Login success','success');
+  }catch(e){
+    if(e.code === 'auth/user-not-found' || e.code === 'auth/invalid-credential'){
+      try{
+        const cred = await createUserWithEmailAndPassword(auth, email, password);
+        await updateProfile(cred.user, { displayName: 'Mudasir Abbas (Admin)' });
+        showMsg('✅ Admin account created!','success');
+      }catch(e2){
+        let msg = 'Failed: '+e2.message;
+        if(e2.code === 'auth/email-already-in-use') msg = 'Password ghalat hai';
+        else if(e2.code === 'auth/weak-password') msg = 'Password 6+ chars';
+        showMsg(msg,'error');
+        btn.disabled = false; btn.innerHTML = '<i class="fas fa-right-to-bracket"></i> Login';
+      }
+    } else {
+      let msg = 'Login failed';
+      if(e.code === 'auth/wrong-password') msg = 'Password ghalat';
+      showMsg(msg,'error');
+      btn.disabled = false; btn.innerHTML = '<i class="fas fa-right-to-bracket"></i> Login';
+    }
+  }
 };
-document.getElementById('logoutBtn').onclick = () => signOut(auth);
-document.getElementById('logoutDeniedBtn').onclick = () => signOut(auth);
 
-async function ensureAdminAccess(user) {
-  try {
-    const userRef = doc(db, 'users', user.uid);
-    const snap = await getDoc(userRef);
-    if (!snap.exists()) {
-      await setDoc(userRef, {
-        name: user.displayName || 'Admin',
-        email: user.email,
-        photo: user.photoURL || '',
-        uid: user.uid,
-        status: 'approved',
-        role: 'admin',
-        createdAt: serverTimestamp(),
-        approvedAt: serverTimestamp(),
-        expiresAt: null,
-        duration: 'lifetime'
+document.getElementById('logoutBtn').onclick = () => signOut(auth);
+
+async function ensureAdminDoc(user){
+  try{
+    const r = doc(db,'users',user.uid);
+    const s = await getDoc(r);
+    if(!s.exists()){
+      await setDoc(r,{
+        name: user.displayName || 'Mudasir Abbas (Admin)',
+        email: user.email, uid: user.uid,
+        status: 'approved', role: 'admin',
+        createdAt: serverTimestamp(), expiresAt: null, duration: 'lifetime',
+        maxSearches: 0, dailyLimit: 0, searchesUsed: 0, todaySearches: 0, todayDate: '',
+        customMessage: '', photo: ''
       });
     } else {
-      const d = snap.data();
-      if (d.status !== 'approved' || d.role !== 'admin' || d.duration !== 'lifetime' || d.email !== user.email || d.expiresAt !== null) {
-        await updateDoc(userRef, {
-          status: 'approved', role: 'admin', duration: 'lifetime',
-          email: user.email, expiresAt: null, approvedAt: serverTimestamp()
-        });
+      const d = s.data();
+      if(d.role !== 'admin' || d.status !== 'approved'){
+        await updateDoc(r,{ role: 'admin', status: 'approved', duration: 'lifetime', expiresAt: null });
       }
     }
-  } catch (e) { console.error('Admin access error:', e); }
+  }catch(e){ console.warn(e); }
 }
 
 onAuthStateChanged(auth, async (user) => {
-  adminUnsubs.forEach(u => u()); adminUnsubs = [];
-
-  if (!user) { authHandled = false; showScreen('login'); return; }
-
-  // 🐛 Console debug
-  console.log('=== ADMIN CHECK ===');
-  console.log('User email:', JSON.stringify(user.email));
-  console.log('Admin email:', JSON.stringify(ADMIN_EMAIL));
-  console.log('Match:', isAdminEmail(user.email));
-
-  if (!isAdminEmail(user.email)) {
-    document.getElementById('deniedMsg').innerHTML = 
-      `Aap logged in ho: <strong style="color:#ff8a8a;">${user.email}</strong><br><br>` +
-      `Ye admin panel sirf <strong style="color:#7ee0a8;">malikmudasirkhar001@gmail.com</strong> ke liye hai.`;
-    showScreen('denied');
+  unsubs.forEach(u => u()); unsubs = [];
+  if(!user){
+    authHandled = false;
+    authScreen.classList.add('active');
+    mainPanel.style.display = 'none';
+    const btn = document.getElementById('doAdminLogin');
+    btn.disabled = false; btn.innerHTML = '<i class="fas fa-right-to-bracket"></i> Login';
     return;
   }
-
-  if (authHandled) return;
+  if(!isAdminEmail(user.email)){
+    showMsg('Ye admin email nahi hai: '+user.email,'error');
+    await signOut(auth);
+    return;
+  }
+  if(authHandled) return;
   authHandled = true;
-
-  await ensureAdminAccess(user);
-  showScreen('main');
-  document.getElementById('adminPhoto').src = user.photoURL || '';
-  document.getElementById('adminEmail').textContent = user.email;
+  await ensureAdminDoc(user);
+  authScreen.classList.remove('active');
+  mainPanel.style.display = 'block';
+  document.getElementById('adminEmailDisplay').textContent = user.email;
   startListeners();
 });
 
-function startListeners() {
-  adminUnsubs.push(onSnapshot(collection(db, 'users'), (snap) => {
-    allUsers = []; snap.forEach(d => allUsers.push({id:d.id, ...d.data()}));
-    allUsers.sort((a,b) => (b.createdAt?.seconds||0) - (a.createdAt?.seconds||0));
+function startListeners(){
+  unsubs.push(onSnapshot(collection(db,'users'),(snap)=>{
+    allUsers = []; snap.forEach(d => allUsers.push({id:d.id,...d.data()}));
+    allUsers.sort((a,b)=>(b.createdAt?.seconds||0)-(a.createdAt?.seconds||0));
     renderUsers(); renderPending(); updateStats();
   }));
-  adminUnsubs.push(onSnapshot(collection(db, 'history'), (snap) => {
-    allHistory = []; snap.forEach(d => allHistory.push({id:d.id, ...d.data()}));
-    allHistory.sort((a,b) => (b.createdAt?.seconds||0) - (a.createdAt?.seconds||0));
+  unsubs.push(onSnapshot(collection(db,'history'),(snap)=>{
+    allHistory = []; snap.forEach(d => allHistory.push({id:d.id,...d.data()}));
+    allHistory.sort((a,b)=>(b.createdAt?.seconds||0)-(a.createdAt?.seconds||0));
     renderHistory(); updateStats();
   }));
-  adminUnsubs.push(onSnapshot(collection(db, 'notifications'), (snap) => {
-    allNotifs = []; snap.forEach(d => allNotifs.push({id:d.id, ...d.data()}));
-    allNotifs.sort((a,b) => (b.createdAt?.seconds||0) - (a.createdAt?.seconds||0));
-    renderNotifs();
+  unsubs.push(onSnapshot(collection(db,'scheduledNotifs'),(snap)=>{
+    allSched = []; snap.forEach(d => allSched.push({id:d.id,...d.data()}));
+    renderSched();
   }));
 }
 
-function updateStats() {
-  document.getElementById('statTotal').textContent = allUsers.length;
-  const pending = allUsers.filter(u => u.status === 'pending').length;
-  document.getElementById('statPending').textContent = pending;
+function updateStats(){
+  document.getElementById('statTotal').textContent = allUsers.filter(u => u.role !== 'admin').length;
+  const pend = allUsers.filter(u => u.status === 'pending').length;
+  document.getElementById('statPending').textContent = pend;
   document.getElementById('statApproved').textContent = allUsers.filter(u => u.status === 'approved').length;
   document.getElementById('statBlocked').textContent = allUsers.filter(u => u.status === 'blocked').length;
   document.getElementById('statHistory').textContent = allHistory.length;
   document.getElementById('userCount').textContent = allUsers.length;
-  document.getElementById('pendingCount').textContent = pending;
-  document.getElementById('pendingBadge').textContent = pending;
+  document.getElementById('pendingCount').textContent = pend;
+  document.getElementById('pendingBadge').textContent = pend;
 }
 
-function renderUsers() {
-  const search = document.getElementById('userSearch').value.toLowerCase().trim();
+function renderUsers(){
+  const q = document.getElementById('userSearch').value.toLowerCase().trim();
   const list = document.getElementById('userList');
-  let filtered = allUsers;
-  if (search) filtered = allUsers.filter(u => (u.name||'').toLowerCase().includes(search) || (u.email||'').toLowerCase().includes(search));
-  if (filtered.length === 0) { list.innerHTML = '<div class="empty-state"><i class="fas fa-users"></i><p>No users found</p></div>'; return; }
-  list.innerHTML = filtered.map(u => renderUserCard(u)).join('');
-  attachUserActions();
+  let f = allUsers;
+  if(q) f = allUsers.filter(u => (u.name||'').toLowerCase().includes(q) || (u.email||'').toLowerCase().includes(q));
+  if(f.length === 0){ list.innerHTML = '<div class="empty-state"><i class="fas fa-users"></i><p>No users</p></div>'; return; }
+  list.innerHTML = f.map(u => userCard(u)).join('');
+  attachActions();
 }
 
-function renderUserCard(u) {
-  const isAdmin = isAdminEmail(u.email);
+function userCard(u){
+  const isA = isAdminEmail(u.email);
+  const st = u.status || 'pending';
   const histCount = allHistory.filter(h => h.userEmail === u.email).length;
-  const durText = u.duration === 'lifetime' ? '∞' : (u.duration || '-');
+  const initial = (u.name||'U').charAt(0).toUpperCase();
   return `
-    <div class="user-card ${u.status}">
+    <div class="user-card ${st}">
       <div class="uinfo">
-        <img src="${escapeHtml(u.photo) || 'https://via.placeholder.com/40'}" alt="">
+        <div class="uavatar">${u.photo ? `<img src="${escapeHtml(u.photo)}">` : initial}</div>
         <div>
-          <div class="uname">${escapeHtml(u.name || 'User')} ${isAdmin ? '<span class="crown">👑</span>' : ''}</div>
-          <div class="uemail">${escapeHtml(u.email || '')} · ${histCount} · ${durText}</div>
-          <span class="ustatus ${u.status}">${u.status}</span>
+          <div class="uname">${escapeHtml(u.name||'User')} ${isA ? '👑' : ''}</div>
+          <div class="uemail">${escapeHtml(u.email||'')} · ${histCount} searches</div>
+          <span class="ustatus ${st}">${st}</span>
         </div>
       </div>
       <div class="uactions">
-        <button class="btn btn-view" data-view="${u.id}"><i class="fas fa-eye"></i></button>
-        ${u.status === 'pending' ? `<button class="btn btn-approve" data-approve="${u.id}"><i class="fas fa-check"></i></button>` : ''}
-        ${u.status === 'approved' && !isAdmin ? `<button class="btn btn-block" data-block="${u.id}"><i class="fas fa-ban"></i></button>` : ''}
-        ${u.status === 'blocked' ? `<button class="btn btn-approve" data-approve="${u.id}"><i class="fas fa-rotate-right"></i></button>` : ''}
-        ${!isAdmin ? `<button class="btn btn-delete" data-delete="${u.id}"><i class="fas fa-trash"></i></button>` : ''}
+        <button class="btn btn-view" data-view="${u.id}"><i class="fas fa-eye"></i> Details</button>
+        ${st === 'pending' ? `<button class="btn btn-approve" data-approve="${u.id}"><i class="fas fa-check"></i> Approve</button>` : ''}
+        ${st === 'approved' && !isA ? `<button class="btn btn-block" data-block="${u.id}"><i class="fas fa-ban"></i> Block</button>` : ''}
+        ${st === 'blocked' ? `<button class="btn btn-approve" data-unblock="${u.id}"><i class="fas fa-rotate-right"></i> Enable</button>` : ''}
+        ${!isA && st !== 'deleted' ? `<button class="btn btn-delete" data-delete="${u.id}"><i class="fas fa-trash"></i></button>` : ''}
       </div>
     </div>`;
 }
 
-function renderPending() {
-  const pending = allUsers.filter(u => u.status === 'pending');
+function renderPending(){
+  const p = allUsers.filter(u => u.status === 'pending');
   const list = document.getElementById('pendingList');
-  if (pending.length === 0) { list.innerHTML = '<div class="empty-state"><i class="fas fa-check-circle"></i><p>No pending requests</p></div>'; return; }
-  list.innerHTML = pending.map(u => renderUserCard(u)).join('');
-  attachUserActions();
+  if(p.length === 0){ list.innerHTML = '<div class="empty-state"><i class="fas fa-check-circle"></i><p>No pending requests</p></div>'; return; }
+  list.innerHTML = p.map(u => userCard(u)).join('');
+  attachActions();
 }
 
-function attachUserActions() {
+function attachActions(){
   document.querySelectorAll('[data-view]').forEach(b => b.onclick = () => openUserModal(b.dataset.view));
   document.querySelectorAll('[data-approve]').forEach(b => b.onclick = () => approveUser(b.dataset.approve));
+  document.querySelectorAll('[data-unblock]').forEach(b => b.onclick = () => unblockUser(b.dataset.unblock));
   document.querySelectorAll('[data-block]').forEach(b => b.onclick = () => blockUser(b.dataset.block));
   document.querySelectorAll('[data-delete]').forEach(b => b.onclick = () => deleteUser(b.dataset.delete));
 }
 
-function renderHistory() {
-  const search = document.getElementById('histSearch').value.toLowerCase().trim();
+function renderHistory(){
+  const q = document.getElementById('histSearch').value.toLowerCase().trim();
   const list = document.getElementById('historyList');
-  let filtered = allHistory;
-  if (search) filtered = allHistory.filter(h => (h.mobile||'').includes(search) || (h.userEmail||'').toLowerCase().includes(search) || (h.name||'').toLowerCase().includes(search));
-  if (filtered.length === 0) { list.innerHTML = '<div class="empty-state"><i class="fas fa-clock-rotate-left"></i><p>No history found</p></div>'; return; }
-  list.innerHTML = filtered.slice(0, 200).map(h => `
+  let f = allHistory;
+  if(q) f = allHistory.filter(h => (h.mobile||'').includes(q) || (h.userEmail||'').toLowerCase().includes(q) || (h.name||'').toLowerCase().includes(q));
+  if(f.length === 0){ list.innerHTML = '<div class="empty-state"><i class="fas fa-clock-rotate-left"></i><p>No history</p></div>'; return; }
+  list.innerHTML = f.slice(0,500).map(h => `
     <div class="hist-item">
-      <div style="flex:1; min-width:200px;">
-        <div class="hnum"><i class="fas fa-phone" style="color:#3d82ff; margin-right:6px;"></i>${escapeHtml(h.mobile || '')}</div>
-        <div class="hname">${escapeHtml(h.name || 'Unknown')} · ${escapeHtml(h.network || '')}</div>
-        <div class="huser"><i class="fas fa-user"></i> ${escapeHtml(h.userEmail || '')}</div>
+      <div style="flex:1;min-width:180px">
+        <div class="hnum"><i class="fas fa-phone" style="color:#3d82ff;margin-right:5px"></i>${escapeHtml(h.mobile||'')}</div>
+        <div class="hname">${escapeHtml(h.name||'Unknown')} · ${escapeHtml(h.network||'')}</div>
+        <div class="huser"><i class="fas fa-user"></i> ${escapeHtml(h.userEmail||'')}</div>
       </div>
       <div class="hdate">${h.createdAt?.toDate ? h.createdAt.toDate().toLocaleString() : ''}</div>
     </div>`).join('');
 }
 
-function renderNotifs() {
-  const list = document.getElementById('notifList');
-  const adminNotifs = allNotifs.filter(n => n.forAdmin === true || n.toEmail === ADMIN_EMAIL);
-  if (adminNotifs.length === 0) { list.innerHTML = '<div class="empty-state"><i class="fas fa-bell-slash"></i><p>No notifications</p></div>'; return; }
-  list.innerHTML = adminNotifs.slice(0, 100).map(n => `
-    <div class="notif-item">
-      <div class="ntitle">${escapeHtml(n.title || '')}</div>
-      <div class="nmsg">${escapeHtml(n.message || '')}</div>
-      <div class="nemail"><i class="fas fa-user"></i> ${escapeHtml(n.toEmail || '')}</div>
-      <div class="ntime">${n.createdAt?.toDate ? n.createdAt.toDate().toLocaleString() : ''}</div>
+function renderSched(){
+  const list = document.getElementById('schedList');
+  if(allSched.length === 0){ list.innerHTML = '<div class="empty-state"><i class="fas fa-clock"></i><p>No scheduled notifications</p></div>'; return; }
+  list.innerHTML = allSched.map(s => `
+    <div class="hist-item">
+      <div style="flex:1;min-width:200px">
+        <div class="hnum"><i class="fas fa-clock" style="color:#4f9eff;margin-right:5px"></i>${escapeHtml(s.time||'')}</div>
+        <div class="hname"><strong style="color:#eaf1ff">${escapeHtml(s.title||'')}</strong></div>
+        <div class="huser">${escapeHtml(s.message||'')}</div>
+      </div>
+      <div class="hdate">
+        <button class="btn btn-delete" data-sched-del="${s.id}"><i class="fas fa-trash"></i></button>
+      </div>
     </div>`).join('');
+  document.querySelectorAll('[data-sched-del]').forEach(b => b.onclick = () => delSched(b.dataset.schedDel));
 }
 
-async function approveUser(uid) {
-  const u = allUsers.find(x => x.id === uid); if (!u) return;
-  try {
-    await updateDoc(doc(db, 'users', uid), { status:'approved', approvedAt:serverTimestamp(), expiresAt:null, duration:'lifetime' });
-    await addDoc(collection(db, 'notifications'), {
+async function approveUser(uid){
+  const u = allUsers.find(x => x.id === uid); if(!u) return;
+  try{
+    await updateDoc(doc(db,'users',uid),{
+      status: 'approved', approvedAt: serverTimestamp(),
+      expiresAt: null, duration: 'lifetime'
+    });
+    await addDoc(collection(db,'notifications'),{
       toEmail: u.email, forAdmin: false,
       title: '🎉 Account Approved!',
-      message: 'Aapka account approve kar diya gaya hai. Lifetime access!',
+      message: 'Aapka account approve kar diya gaya. Welcome to Mudasir Abbas Database!',
       read: false, createdAt: serverTimestamp()
     });
-    alert(`✅ ${u.name} approved with LIFETIME access.`);
-  } catch (e) { alert('Error: ' + e.message); }
+    alert(`✅ ${u.name} approved`);
+  }catch(e){ alert('Error: '+e.message); }
 }
 
-async function blockUser(uid) {
-  const u = allUsers.find(x => x.id === uid); if (!u) return;
-  if (!confirm(`${u.name} ko disable karna hai?`)) return;
-  try {
-    await updateDoc(doc(db, 'users', uid), { status: 'blocked' });
-    await addDoc(collection(db, 'notifications'), {
+async function unblockUser(uid){
+  const u = allUsers.find(x => x.id === uid); if(!u) return;
+  try{
+    await updateDoc(doc(db,'users',uid),{ status: 'approved', customMessage: '' });
+    await addDoc(collection(db,'notifications'),{
       toEmail: u.email, forAdmin: false,
-      title: '🚫 Account Disabled', message: 'Aapka account disable kar diya gaya hai.',
+      title: '✅ Account Re-enabled',
+      message: 'Aapka account dobara enable kar diya gaya hai.',
       read: false, createdAt: serverTimestamp()
     });
-    alert('Account disabled.');
-  } catch (e) { alert('Error: ' + e.message); }
+    alert('✅ Re-enabled');
+  }catch(e){ alert('Error: '+e.message); }
 }
 
-async function deleteUser(uid) {
-  const u = allUsers.find(x => x.id === uid); if (!u) return;
-  if (!confirm(`${u.name} (${u.email}) ko DELETE karna hai?`)) return;
-  try { await deleteDoc(doc(db, 'users', uid)); alert('User deleted.'); }
-  catch (e) { alert('Error: ' + e.message); }
+async function blockUser(uid){
+  const u = allUsers.find(x => x.id === uid); if(!u) return;
+  const custom = prompt('Custom message for user (optional):', `Aap ko Mudasir Abbas Database ne disable kar diya hai.`) || '';
+  try{
+    await updateDoc(doc(db,'users',uid),{ status: 'blocked', customMessage: custom });
+    await addDoc(collection(db,'notifications'),{
+      toEmail: u.email, forAdmin: false,
+      title: '🚫 Account Disabled',
+      message: custom || 'Aapka account disable kar diya gaya hai.',
+      read: false, createdAt: serverTimestamp()
+    });
+    alert('Blocked');
+  }catch(e){ alert('Error: '+e.message); }
 }
 
-function openUserModal(uid) {
-  const u = allUsers.find(x => x.id === uid); if (!u) return;
-  const userHist = allHistory.filter(h => h.userEmail === u.email);
-  const isAdmin = isAdminEmail(u.email);
+async function deleteUser(uid){
+  const u = allUsers.find(x => x.id === uid); if(!u) return;
+  if(!confirm(`${u.name} ko DELETE karna hai?`)) return;
+  try{
+    await updateDoc(doc(db,'users',uid),{
+      status: 'deleted', customMessage: 'Account Deleted by Mudasir Abbas',
+      deletedAt: serverTimestamp()
+    });
+    await addDoc(collection(db,'notifications'),{
+      toEmail: u.email, forAdmin: false,
+      title: '❌ Account Deleted',
+      message: 'Account Deleted by Mudasir Abbas',
+      read: false, createdAt: serverTimestamp()
+    });
+    alert('Deleted');
+  }catch(e){ alert('Error: '+e.message); }
+}
+
+function openUserModal(uid){
+  const u = allUsers.find(x => x.id === uid); if(!u) return;
+  const isA = isAdminEmail(u.email);
+  const hist = allHistory.filter(h => h.userEmail === u.email);
+  const initial = (u.name||'U').charAt(0).toUpperCase();
+  const exp = u.expiresAt?.toDate ? u.expiresAt.toDate().toLocaleString() : (u.duration === 'lifetime' ? 'Lifetime' : 'Not set');
   document.getElementById('modalContent').innerHTML = `
     <div class="modal-profile">
-      <img src="${escapeHtml(u.photo)}" alt="">
+      <div class="mav">${u.photo ? `<img src="${escapeHtml(u.photo)}">` : initial}</div>
       <div>
-        <div style="font-weight:700; font-size:1.05rem; color:#eaf1ff;">${escapeHtml(u.name)} ${isAdmin ? '<span style="color:#f5b942;">👑</span>' : ''}</div>
-        <div style="color:#8fa9d0; font-size:0.78rem; word-break:break-all;">${escapeHtml(u.email)}</div>
+        <div style="font-weight:700;font-size:0.98rem;color:#eaf1ff">${escapeHtml(u.name)} ${isA ? '👑' : ''}</div>
+        <div style="color:#8fa9d0;font-size:0.72rem;word-break:break-all">${escapeHtml(u.email)}</div>
       </div>
     </div>
-    <div class="field"><div class="lbl">Status</div><div class="val">${u.status.toUpperCase()}</div></div>
-    <div class="field"><div class="lbl">Role</div><div class="val">${u.role || 'user'}</div></div>
-    <div class="field"><div class="lbl">Duration</div><div class="val">${u.duration || 'none'}</div></div>
-    <div class="field"><div class="lbl">Expires At</div><div class="val">${u.expiresAt?.toDate ? u.expiresAt.toDate().toLocaleString() : (u.duration === 'lifetime' ? 'Never (Lifetime)' : 'Not set')}</div></div>
-    <div class="field"><div class="lbl">Total Searches</div><div class="val">${userHist.length}</div></div>
-    <div class="section-title">⏱️ Set Duration</div>
-    <div class="duration-options" id="durationOpts">
+    <div class="field"><div class="lbl">Status</div><div class="val">${(u.status||'pending').toUpperCase()}</div></div>
+    <div class="field"><div class="lbl">Searches Used</div><div class="val">${u.searchesUsed||0} / ${u.maxSearches ? u.maxSearches : '∞'}</div></div>
+    <div class="field"><div class="lbl">Daily Limit</div><div class="val">${u.dailyLimit ? u.dailyLimit + ' per day' : 'No daily cap'} (today: ${u.todayDate === todayStr() ? (u.todaySearches||0) : 0})</div></div>
+    <div class="field"><div class="lbl">Expires</div><div class="val">${exp}</div></div>
+
+    <div class="section-title">⏱️ Set Access Duration</div>
+    <div class="dur-grid" id="durGrid">
       <div class="dur-btn" data-days="1">1 Day</div>
       <div class="dur-btn" data-days="7">7 Days</div>
       <div class="dur-btn" data-days="30">30 Days</div>
@@ -553,86 +529,109 @@ function openUserModal(uid) {
       <div class="dur-btn" data-days="365">1 Year</div>
       <div class="dur-btn" data-days="lifetime">Lifetime</div>
     </div>
-    <button class="btn btn-approve" id="applyDuration" style="width:100%; justify-content:center; padding:0.85rem; font-size:0.85rem;">
-      <i class="fas fa-check"></i> Apply Duration
-    </button>
-    <div class="section-title">📊 Recent Searches (${userHist.length})</div>
-    <div style="max-height:220px; overflow-y:auto;">
-      ${userHist.length === 0 ? '<div style="color:#4a5f80; font-size:0.85rem; text-align:center; padding:1rem;">No searches yet</div>' :
-        userHist.slice(0, 25).map(h => `
-          <div style="background:#0e1527; border-radius:0.9rem; padding:0.7rem 1rem; margin-bottom:0.4rem; border-left:3px solid #2c6ed4;">
-            <div style="font-weight:700; font-size:0.85rem; color:#eaf1ff;">${escapeHtml(h.mobile)}</div>
-            <div style="color:#7f9bcb; font-size:0.7rem;">${escapeHtml(h.name)} · ${h.createdAt?.toDate ? h.createdAt.toDate().toLocaleString() : ''}</div>
-          </div>`).join('')}
+
+    <div class="section-title">🔍 Search Limits</div>
+    <div class="input-field"><i class="fas fa-hashtag"></i><input type="number" id="maxS" placeholder="Total max (0 = unlimited)" value="${u.maxSearches||0}"></div>
+    <div class="input-field"><i class="fas fa-calendar-day"></i><input type="number" id="dailyS" placeholder="Daily max (0 = unlimited)" value="${u.dailyLimit||0}"></div>
+    <div class="input-field"><i class="fas fa-undo"></i><input type="number" id="resetUsed" placeholder="Reset usage to (0 = no change)" value="0"></div>
+
+    <div class="section-title">💬 Custom Message (when disabled)</div>
+    <div class="input-field"><i class="fas fa-comment"></i><textarea id="customMsg" placeholder="Message shown when user is disabled...">${escapeHtml(u.customMessage||'')}</textarea></div>
+
+    <div class="modal-btns">
+      <button class="save" id="saveUser"><i class="fas fa-check"></i> Save Changes</button>
+      <button class="cancel" id="cancelUser"><i class="fas fa-times"></i> Cancel</button>
     </div>
-    <div class="section-title">🚫 Danger Zone</div>
-    <div class="modal-actions">
-      ${u.status === 'approved' && !isAdmin ? `<button class="btn btn-block" id="modalBlock"><i class="fas fa-ban"></i> Disable</button>` : ''}
-      ${u.status === 'blocked' ? `<button class="btn btn-approve" id="modalUnblock"><i class="fas fa-rotate-right"></i> Re-enable</button>` : ''}
-      ${u.status === 'pending' ? `<button class="btn btn-approve" id="modalApprove"><i class="fas fa-check"></i> Approve</button>` : ''}
+
+    <div class="section-title">📊 Recent Searches (${hist.length})</div>
+    <div style="max-height:200px;overflow-y:auto">
+      ${hist.length === 0 ? '<div style="color:#4a5f80;font-size:0.78rem;text-align:center;padding:0.8rem">No searches yet</div>' :
+        hist.slice(0,20).map(h => `
+          <div style="background:#0e1527;border-radius:0.8rem;padding:0.6rem 0.9rem;margin-bottom:0.35rem;border-left:3px solid #2c6ed4">
+            <div style="font-weight:700;font-size:0.8rem;color:#eaf1ff">${escapeHtml(h.mobile)}</div>
+            <div style="color:#7f9bcb;font-size:0.65rem">${escapeHtml(h.name)} · ${h.createdAt?.toDate ? h.createdAt.toDate().toLocaleString() : ''}</div>
+          </div>`).join('')}
     </div>`;
+
   document.getElementById('userModal').classList.add('open');
-  let selectedDays = u.duration === 'lifetime' ? 'lifetime' : null;
+  let selDays = u.duration === 'lifetime' ? 'lifetime' : null;
   document.querySelectorAll('.dur-btn').forEach(b => {
-    if (b.dataset.days === String(u.duration)) b.classList.add('active');
-    b.onclick = () => { document.querySelectorAll('.dur-btn').forEach(x => x.classList.remove('active')); b.classList.add('active'); selectedDays = b.dataset.days; };
+    if(String(b.dataset.days) === String(u.duration)) b.classList.add('active');
+    b.onclick = () => { document.querySelectorAll('.dur-btn').forEach(x => x.classList.remove('active')); b.classList.add('active'); selDays = b.dataset.days; };
   });
-  document.getElementById('applyDuration').onclick = async () => {
-    if (!selectedDays) { alert('Please select duration'); return; }
-    try {
-      const update = { duration: selectedDays, status: 'approved' };
-      if (selectedDays === 'lifetime') update.expiresAt = null;
-      else { const exp = new Date(); exp.setDate(exp.getDate() + parseInt(selectedDays)); update.expiresAt = exp; }
-      await updateDoc(doc(db, 'users', uid), update);
-      const msg = selectedDays === 'lifetime' ? 'Aapki access LIFETIME kar di gayi hai! 🎉' : `Aapki access ${selectedDays} din ke liye set ki gayi hai.`;
-      await addDoc(collection(db, 'notifications'), { toEmail: u.email, forAdmin: false, title: '⏱️ Access Updated', message: msg, read: false, createdAt: serverTimestamp() });
-      alert('✅ Duration updated!');
-    } catch (e) { alert('Error: ' + e.message); }
+
+  document.getElementById('cancelUser').onclick = () => document.getElementById('userModal').classList.remove('open');
+  document.getElementById('saveUser').onclick = async () => {
+    const maxS = parseInt(document.getElementById('maxS').value) || 0;
+    const dailyS = parseInt(document.getElementById('dailyS').value) || 0;
+    const resetU = parseInt(document.getElementById('resetUsed').value) || 0;
+    const customM = document.getElementById('customMsg').value.trim();
+    try{
+      const upd = {
+        maxSearches: maxS,
+        dailyLimit: dailyS,
+        customMessage: customM
+      };
+      if(selDays === 'lifetime'){ upd.duration = 'lifetime'; upd.expiresAt = null; }
+      else if(selDays){ const d = parseInt(selDays); const e = new Date(); e.setDate(e.getDate() + d); upd.duration = String(d); upd.expiresAt = e; }
+      if(resetU > 0) upd.searchesUsed = 0;
+      await updateDoc(doc(db,'users',uid), upd);
+      await addDoc(collection(db,'notifications'),{
+        toEmail: u.email, forAdmin: false,
+        title: '⚙️ Account Updated',
+        message: 'Aapki account settings admin ne update ki hain.',
+        read: false, createdAt: serverTimestamp()
+      });
+      document.getElementById('userModal').classList.remove('open');
+      alert('✅ User updated');
+    }catch(e){ alert('Error: '+e.message); }
   };
-  const blockBtn = document.getElementById('modalBlock'); if (blockBtn) blockBtn.onclick = () => { closeModal(); blockUser(uid); };
-  const unblockBtn = document.getElementById('modalUnblock'); if (unblockBtn) unblockBtn.onclick = () => { closeModal(); approveUser(uid); };
-  const approveBtn = document.getElementById('modalApprove'); if (approveBtn) approveBtn.onclick = () => { closeModal(); approveUser(uid); };
 }
 
-function closeModal() { document.getElementById('userModal').classList.remove('open'); }
-document.getElementById('closeModal').onclick = closeModal;
-document.getElementById('userModal').addEventListener('click', (e) => { if (e.target.id === 'userModal') closeModal(); });
+function todayStr(){ return new Date().toISOString().slice(0,10); }
 
-document.getElementById('broadcastBtn').onclick = () => document.getElementById('broadcastModal').classList.add('open');
-document.getElementById('closeBroadcast').onclick = () => document.getElementById('broadcastModal').classList.remove('open');
-document.getElementById('broadcastModal').addEventListener('click', (e) => { if (e.target.id === 'broadcastModal') document.getElementById('broadcastModal').classList.remove('open'); });
+document.getElementById('closeModal').onclick = () => document.getElementById('userModal').classList.remove('open');
+document.getElementById('userModal').addEventListener('click', e => { if(e.target.id === 'userModal') document.getElementById('userModal').classList.remove('open'); });
 
-document.getElementById('sendBroadcast').onclick = async () => {
-  const title = document.getElementById('bcTitle').value.trim();
-  const message = document.getElementById('bcMessage').value.trim();
-  if (!title || !message) { alert('Title aur message dono likho'); return; }
-  if (!confirm(`${allUsers.length} users ko bhejni hai?`)) return;
-  try {
-    for (const u of allUsers) {
-      await addDoc(collection(db, 'notifications'), {
-        toEmail: u.email, forAdmin: false, title, message, read: false, createdAt: serverTimestamp()
-      });
-    }
-    alert(`✅ ${allUsers.length} users ko bhej di!`);
-    document.getElementById('broadcastModal').classList.remove('open');
-    document.getElementById('bcTitle').value = '';
-    document.getElementById('bcMessage').value = '';
-  } catch (e) { alert('Error: ' + e.message); }
+// SCHEDULED
+document.getElementById('addSchedBtn').onclick = () => document.getElementById('schedModal').classList.add('open');
+document.getElementById('closeSched').onclick = () => document.getElementById('schedModal').classList.remove('open');
+document.getElementById('cancelSched').onclick = () => document.getElementById('schedModal').classList.remove('open');
+document.getElementById('saveSched').onclick = async () => {
+  const title = document.getElementById('schedTitle').value.trim();
+  const message = document.getElementById('schedMessage').value.trim();
+  const time = document.getElementById('schedTime').value;
+  if(!title || !message || !time){ alert('Sab fields bharein'); return; }
+  try{
+    await addDoc(collection(db,'scheduledNotifs'),{
+      title, message, time, active: true,
+      lastSentDate: '', createdAt: serverTimestamp()
+    });
+    document.getElementById('schedModal').classList.remove('open');
+    document.getElementById('schedTitle').value = '';
+    document.getElementById('schedMessage').value = '';
+    alert('✅ Scheduled');
+  }catch(e){ alert('Error: '+e.message); }
 };
+
+async function delSched(id){
+  if(!confirm('Delete this scheduled notification?')) return;
+  try{ await deleteDoc(doc(db,'scheduledNotifs',id)); }catch(e){ alert(e.message); }
+}
 
 document.querySelectorAll('.tab').forEach(t => {
   t.onclick = () => {
     document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
     t.classList.add('active');
     document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
-    document.getElementById('panel-' + t.dataset.tab).classList.add('active');
+    document.getElementById('panel-'+t.dataset.tab).classList.add('active');
   };
 });
 
 document.getElementById('userSearch').addEventListener('input', renderUsers);
 document.getElementById('histSearch').addEventListener('input', renderHistory);
 
-function escapeHtml(t) { if (!t) return ''; const d = document.createElement('div'); d.textContent = t; return d.innerHTML; }
+function escapeHtml(t){ if(!t) return ''; const d = document.createElement('div'); d.textContent = t; return d.innerHTML; }
 </script>
 </body>
 </html>
