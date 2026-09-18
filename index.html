@@ -11,27 +11,21 @@
   body{background:linear-gradient(145deg,#0b0f1c,#1a1f33);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:1rem;color:#eaf1ff;overflow-x:hidden}
   body::before{content:'';position:fixed;inset:0;z-index:-1;background:radial-gradient(circle at 20% 30%,rgba(79,158,255,0.15),transparent 50%),radial-gradient(circle at 80% 70%,rgba(31,94,214,0.15),transparent 50%)}
   .card{background:rgba(20,25,45,0.92);backdrop-filter:blur(14px);border-radius:2rem;padding:1.8rem 1.5rem;max-width:750px;width:100%;box-shadow:0 30px 60px rgba(0,0,0,0.8);border:1px solid rgba(80,140,255,0.25);position:relative;z-index:1}
-  
-  /* 3D SCROLLING BANNER */
   .banner3d{overflow:hidden;white-space:nowrap;padding:0.5rem 0;margin-bottom:1rem;background:linear-gradient(90deg,rgba(79,158,255,0.1),rgba(79,158,255,0.05),rgba(79,158,255,0.1));border-radius:1rem;border:1px solid rgba(80,140,255,0.2)}
-  .banner-track{display:inline-block;animation:marquee 15s linear infinite;font-weight:900;font-size:1.1rem;letter-spacing:3px;background:linear-gradient(135deg,#4f9eff 0%,#a5c9ff 50%,#4f9eff 100%);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:marquee 18s linear infinite,shine 3s linear infinite;text-shadow:0 0 20px rgba(79,158,255,0.4)}
+  .banner-track{display:inline-block;animation:marquee 15s linear infinite;font-weight:900;font-size:1.1rem;letter-spacing:3px;background:linear-gradient(135deg,#4f9eff 0%,#a5c9ff 50%,#4f9eff 100%);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:marquee 18s linear infinite,shine 3s linear infinite}
   @keyframes marquee{0%{transform:translateX(100%)}100%{transform:translateX(-100%)}}
   @keyframes shine{to{background-position:200% center}}
-
   .header{display:flex;align-items:center;gap:0.7rem;margin-bottom:1rem;flex-wrap:wrap}
   .header i.main{font-size:1.8rem;color:#4f9eff;background:rgba(30,70,150,0.3);padding:0.55rem;border-radius:1.2rem}
   .header h1{font-size:1.3rem;background:linear-gradient(90deg,#eaf1ff,#6db3ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
   .header h1 span{font-size:0.65rem;background:linear-gradient(135deg,#254a7a,#1f5ed6);padding:0.2rem 0.7rem;border-radius:40px;color:#fff;-webkit-text-fill-color:#fff;margin-left:0.5rem}
   .screen{display:none}.screen.active{display:block;animation:fadeIn 0.4s}
   @keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-
-  /* AUTH */
   .auth-box{text-align:center;padding:0.5rem}
   .logo-3d{width:90px;height:90px;margin:0 auto 1.2rem;background:linear-gradient(135deg,#3d82ff,#1f5ed6,#0a3a9e);border-radius:1.8rem;display:flex;align-items:center;justify-content:center;font-size:3rem;color:#fff;box-shadow:0 20px 40px rgba(31,94,214,0.5),0 0 60px rgba(79,158,255,0.4);animation:logoFloat 4s ease-in-out infinite}
-  @keyframes logoFloat{0%,100%{transform:rotateX(0) rotateY(0) translateY(0)}25%{transform:rotateX(-8deg) rotateY(12deg) translateY(-8px)}50%{transform:translateY(-12px)}75%{transform:rotateX(8deg) rotateY(-12deg) translateY(-8px)}}
-  .name-3d{display:inline-block;font-size:1.8rem;font-weight:900;letter-spacing:2px;background:linear-gradient(135deg,#4f9eff 0%,#a5c9ff 30%,#fff 50%,#a5c9ff 70%,#4f9eff 100%);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:nameShine 3s linear infinite,nameFloat2 3.5s ease-in-out infinite;filter:drop-shadow(0 0 20px rgba(79,158,255,0.6))}
+  @keyframes logoFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+  .name-3d{display:inline-block;font-size:1.8rem;font-weight:900;letter-spacing:2px;background:linear-gradient(135deg,#4f9eff 0%,#a5c9ff 30%,#fff 50%,#a5c9ff 70%,#4f9eff 100%);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:nameShine 3s linear infinite;filter:drop-shadow(0 0 20px rgba(79,158,255,0.6))}
   @keyframes nameShine{to{background-position:200% center}}
-  @keyframes nameFloat2{0%,100%{transform:translateZ(0)}50%{transform:translateZ(15px)}}
   .name-sub{display:block;font-size:0.68rem;color:#8fa9d0;letter-spacing:4px;text-transform:uppercase;margin-bottom:1.2rem;font-weight:600}
   .auth-tabs{display:flex;gap:0.3rem;margin-bottom:1.2rem;background:#0b101f;padding:0.35rem;border-radius:2rem;border:1px solid #263b60}
   .auth-tab{flex:1;background:transparent;color:#8fa9d0;border:none;border-radius:2rem;padding:0.6rem;cursor:pointer;font-weight:700;font-size:0.82rem}
@@ -48,8 +42,6 @@
   .auth-msg.success{background:#0e2a1a;color:#7ee0a8;border:1px solid #1e5a35;display:block}
   .contact-info{background:#0e1527;border-radius:1rem;padding:0.9rem 1rem;margin-top:0.9rem;border-left:3px solid #25d366;text-align:left;font-size:0.8rem;color:#b8d6ff}
   .contact-info a{color:#25d366;text-decoration:none;font-weight:700}
-
-  /* PENDING / STATUS SCREENS */
   .status-screen{text-align:center;padding:2rem 1rem}
   .status-icon{font-size:4rem;margin-bottom:1rem;animation:iconPulse 2s ease-in-out infinite}
   @keyframes iconPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
@@ -58,8 +50,6 @@
   .whatsapp-big{background:linear-gradient(135deg,#25d366,#128c4a);color:#fff;border:none;border-radius:3rem;padding:0.9rem 1.8rem;font-weight:700;font-size:0.9rem;display:inline-flex;align-items:center;gap:0.5rem;cursor:pointer;text-decoration:none;margin-bottom:0.8rem;box-shadow:0 15px 30px rgba(37,211,102,0.3)}
   .custom-msg{background:linear-gradient(135deg,#2a1515,#3a2020);border:1px solid #5a2020;border-radius:1.2rem;padding:1rem;margin-top:1rem;color:#ffb8b8;font-size:0.88rem;line-height:1.5;text-align:left}
   .logout-link{background:transparent;color:#8fa9d0;border:1px solid #2b3f66;border-radius:2rem;padding:0.5rem 1.2rem;font-size:0.75rem;cursor:pointer;margin-top:0.6rem}
-
-  /* MAIN */
   .user-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.2rem;padding-bottom:1rem;border-bottom:1px solid #1f3150;flex-wrap:wrap;gap:0.7rem}
   .user-info{display:flex;align-items:center;gap:0.6rem}
   .user-info .avatar{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,#3d82ff,#1f5ed6);display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;font-size:1.1rem;overflow:hidden;box-shadow:0 0 15px rgba(61,130,255,0.4)}
@@ -79,21 +69,17 @@
   .input-group:focus-within{border-color:#2f7bff}
   .input-group i{color:#3c7eff;font-size:1rem;margin-right:0.4rem}
   .input-group input{flex:1;background:transparent;border:none;outline:none;font-size:0.95rem;padding:0.8rem 0.4rem;color:#fff;min-width:0;letter-spacing:1px;font-family:monospace}
-  .input-group input::placeholder{color:#6a7fa0;font-size:0.85rem;letter-spacing:0}
+  .input-group input::placeholder{color:#6a7fa0;font-size:0.82rem;letter-spacing:0}
   .input-group button{background:linear-gradient(135deg,#1f5ed6,#0e3b9e);border:none;border-radius:3rem;padding:0.8rem 1.3rem;color:#fff;font-weight:700;display:flex;align-items:center;gap:0.4rem;cursor:pointer;font-size:0.82rem;border:1px solid #4d8cff}
   .limits-bar{display:flex;gap:0.5rem;margin-bottom:0.8rem;flex-wrap:wrap}
   .limit-pill{background:#0e1527;border:1px solid #263b60;border-radius:2rem;padding:0.35rem 0.85rem;font-size:0.7rem;color:#8fa9d0;display:flex;align-items:center;gap:0.3rem}
   .limit-pill strong{color:#4f9eff}
   .result-container{background:#0b111fcc;border-radius:1.8rem;padding:1.1rem 1.2rem;border:1px solid #263b60;min-height:180px;position:relative}
-
-  /* FETCHING OVERLAY */
   .fetching-overlay{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2.5rem 1rem;gap:1rem}
   .fetching-spinner{width:50px;height:50px;border:4px solid #1d3155;border-top:4px solid #4f9eff;border-radius:50%;animation:spin 0.9s linear infinite}
   @keyframes spin{to{transform:rotate(360deg)}}
   .fetching-text{font-weight:800;font-size:0.95rem;background:linear-gradient(90deg,#4f9eff,#a5c9ff,#4f9eff);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:shine 2s linear infinite;letter-spacing:1px}
-
-  /* ID CARD */
-  .id-card{background:linear-gradient(135deg,#0e1830,#152447);border-radius:1.6rem;padding:1.2rem;border:2px solid #2c6ed4;position:relative;overflow:hidden}
+  .id-card{background:linear-gradient(135deg,#0e1830,#152447);border-radius:1.6rem;padding:1.2rem;border:2px solid #2c6ed4;position:relative;overflow:hidden;margin-bottom:0.8rem}
   .id-card::before{content:'';position:absolute;top:-50%;right:-20%;width:180px;height:180px;background:radial-gradient(circle,rgba(79,158,255,0.25),transparent 70%);border-radius:50%}
   .id-card-header{display:flex;align-items:center;gap:0.6rem;margin-bottom:0.9rem;padding-bottom:0.7rem;border-bottom:1px solid #2b3f66;position:relative;z-index:1}
   .id-card-header i{color:#4f9eff;font-size:1.4rem}
@@ -113,13 +99,14 @@
   .action-btn.green{background:linear-gradient(135deg,#25a05a,#128c4a);border-color:#2ecc71}
   .action-btn.purple{background:linear-gradient(135deg,#7a1eb0,#4a0e7a);border-color:#a855f7}
 
-  /* HISTORY */
+  /* MULTI-RESULT HEADER */
+  .multi-header{background:linear-gradient(135deg,#0e2a1a,#154a30);border:1px solid #1e5a35;border-radius:1rem;padding:0.75rem 1rem;margin-bottom:0.8rem;color:#7ee0a8;font-size:0.82rem;font-weight:700;display:flex;align-items:center;gap:0.5rem}
+  .multi-header .count{background:#1e5a35;padding:0.15rem 0.6rem;border-radius:20px;color:#fff;font-size:0.75rem}
+
   .hist-item{display:flex;justify-content:space-between;align-items:center;background:#0e1527;padding:0.8rem 0.9rem;border-radius:1rem;margin-bottom:0.5rem;border-left:3px solid #2c6ed4;gap:0.7rem}
   .hist-item .hnum{color:#eaf1ff;font-weight:600;font-size:0.85rem;font-family:monospace}
   .hist-item .hname{color:#7f9bcb;font-size:0.7rem;margin-top:0.1rem}
   .hist-item .hdate{color:#4a5f80;font-size:0.65rem;text-align:right}
-
-  /* PROFILE */
   .profile-card{background:linear-gradient(135deg,#0e1830,#152447);border-radius:1.6rem;padding:1.5rem 1.2rem;text-align:center;border:1px solid #2c6ed4;position:relative}
   .profile-avatar{width:90px;height:90px;border-radius:50%;background:linear-gradient(135deg,#3d82ff,#1f5ed6);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:2.2rem;color:#fff;margin:0 auto 0.8rem;position:relative;overflow:hidden;border:3px solid #3d82ff;box-shadow:0 0 25px rgba(61,130,255,0.5)}
   .profile-avatar img{width:100%;height:100%;object-fit:cover}
@@ -131,8 +118,6 @@
   .pstat .num{color:#4f9eff;font-weight:700;font-size:1rem}
   .pstat .lbl{color:#7f9bcb;font-size:0.6rem;text-transform:uppercase;margin-top:0.15rem}
   .edit-btn{background:linear-gradient(135deg,#1f5ed6,#0e3b9e);border:1px solid #4d8cff;color:#fff;border-radius:1rem;padding:0.55rem 1.2rem;font-size:0.75rem;font-weight:700;cursor:pointer;margin-top:0.5rem}
-
-  /* NOTIF PANEL */
   .notif-panel{position:fixed;top:0;right:-420px;width:340px;max-width:90vw;height:100vh;background:#0d1424;box-shadow:-20px 0 50px rgba(0,0,0,0.9);transition:0.3s;z-index:1000;padding:1.3rem;overflow-y:auto;border-left:1px solid #263b60}
   .notif-panel.open{right:0}
   .notif-panel h3{color:#eaf1ff;margin-bottom:1rem;display:flex;justify-content:space-between;font-size:1rem}
@@ -142,8 +127,6 @@
   .notif-item .nmsg{color:#8fa9d0;font-size:0.75rem;line-height:1.4}
   .notif-item .ntime{color:#4a5f80;font-size:0.65rem;margin-top:0.3rem}
   .notif-empty{color:#4a5f80;text-align:center;padding:2rem 0;font-size:0.82rem}
-
-  /* MODAL */
   .modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.85);backdrop-filter:blur(6px);z-index:1100;display:none;align-items:center;justify-content:center;padding:1rem}
   .modal-backdrop.open{display:flex}
   .modal{background:#0d1424;border-radius:1.5rem;padding:1.3rem;max-width:420px;width:100%;border:1px solid #2b3f66;max-height:90vh;overflow-y:auto}
@@ -154,19 +137,16 @@
   .modal-btns button{flex:1;padding:0.7rem;border-radius:0.9rem;font-weight:700;font-size:0.82rem;cursor:pointer;border:1px solid;display:flex;align-items:center;justify-content:center;gap:0.4rem}
   .modal-btns .save{background:linear-gradient(135deg,#1e7a44,#0e5a2a);color:#fff;border-color:#2ecc71}
   .modal-btns .cancel{background:#2a1414;color:#ff8a8a;border-color:#5a2020}
-
   .empty-state{display:flex;flex-direction:column;align-items:center;padding:2rem 1rem;color:#5f7397;text-align:center;gap:0.8rem}
   .empty-state i{font-size:2.4rem;color:#25427a}
   .footer{margin-top:1.2rem;text-align:center;font-size:0.65rem;color:#475e83;border-top:1px solid #1d2c46;padding-top:0.9rem}
   .footer strong{color:#4f9eff}
   .footer a{color:#25d366;text-decoration:none;font-weight:700}
-
   @media(max-width:500px){.card{padding:1.2rem 1rem}.header h1{font-size:1.1rem}.input-group button span{display:none}.nav-tab span{display:none}.action-row{grid-template-columns:1fr 1fr}.name-3d{font-size:1.5rem}}
 </style>
 </head>
 <body>
 <div class="card">
-  <!-- 3D SCROLLING BANNER -->
   <div class="banner3d">
     <div class="banner-track">⭐ MUDASIR ABBAS DATABASE ⭐ MUDASIR ABBAS DATABASE ⭐ MUDASIR ABBAS DATABASE ⭐ MUDASIR ABBAS DATABASE ⭐</div>
   </div>
@@ -176,7 +156,6 @@
     <h1>SIM Info <span>MUDASIR DB</span></h1>
   </div>
 
-  <!-- AUTH -->
   <div class="screen active" id="authScreen">
     <div class="auth-box">
       <div class="logo-3d"><i class="fas fa-sim-card"></i></div>
@@ -201,12 +180,11 @@
       <div class="contact-info">
         <i class="fab fa-whatsapp" style="color:#25d366"></i> <strong>Admin Contact:</strong>
         <a href="https://wa.me/923084191378" target="_blank">0308 419 1378</a><br>
-        <span style="font-size:0.72rem;color:#7f9bcb">Access ke liye ya kisi bhi help ke liye is number pe WhatsApp karein</span>
+        <span style="font-size:0.72rem;color:#7f9bcb">Access ya kisi bhi help ke liye WhatsApp karein</span>
       </div>
     </div>
   </div>
 
-  <!-- PENDING -->
   <div class="screen" id="pendingScreen">
     <div class="status-screen">
       <i class="fas fa-hourglass-half status-icon" style="color:#f5b942"></i>
@@ -218,15 +196,12 @@
     </div>
   </div>
 
-  <!-- DISABLED -->
   <div class="screen" id="disabledScreen">
     <div class="status-screen">
       <i class="fas fa-ban status-icon" style="color:#ff5252"></i>
       <h2>Account Disabled</h2>
       <p>Aapka account admin ne disable kar diya hai.</p>
-      <div class="custom-msg" id="disabledMsg">
-        <i class="fas fa-info-circle"></i> Aap ko <strong>Mudasir Abbas Database</strong> ne disable kar diya hai.
-      </div>
+      <div class="custom-msg" id="disabledMsg"><i class="fas fa-info-circle"></i> Aap ko <strong>Mudasir Abbas Database</strong> ne disable kar diya hai.</div>
       <br>
       <a href="https://wa.me/923084191378" target="_blank" class="whatsapp-big"><i class="fab fa-whatsapp"></i> Contact Admin</a>
       <br>
@@ -234,21 +209,17 @@
     </div>
   </div>
 
-  <!-- DELETED -->
   <div class="screen" id="deletedScreen">
     <div class="status-screen">
       <i class="fas fa-user-slash status-icon" style="color:#ff5252"></i>
       <h2>Account Deleted</h2>
       <p>Aapka account delete kar diya gaya hai.</p>
-      <div class="custom-msg">
-        <i class="fas fa-info-circle"></i> Account <strong>Deleted by Mudasir Abbas</strong>
-      </div>
+      <div class="custom-msg"><i class="fas fa-info-circle"></i> Account <strong>Deleted by Mudasir Abbas</strong></div>
       <br>
       <button class="logout-link" id="logoutDeletedBtn"><i class="fas fa-right-from-bracket"></i> Logout</button>
     </div>
   </div>
 
-  <!-- MAIN -->
   <div class="screen" id="mainScreen">
     <div class="user-bar">
       <div class="user-info">
@@ -274,15 +245,15 @@
     <div id="tab-search">
       <div class="limits-bar" id="limitsBar"></div>
       <div class="input-group">
-        <i class="fas fa-phone-alt"></i>
-        <input type="tel" id="numberInput" placeholder="03XX-XXXXXXX" maxlength="20">
+        <i class="fas fa-search"></i>
+        <input type="text" id="numberInput" placeholder="Mobile (03XX) ya CNIC (13 digits)" maxlength="20">
         <button id="searchBtn"><i class="fas fa-search"></i> <span>Search</span></button>
       </div>
       <div style="font-size:0.68rem;color:#7f94bb;display:flex;align-items:center;gap:5px;padding-left:0.7rem;margin-bottom:0.7rem">
         <i class="fas fa-database" style="color:#3380ff"></i> Powered by Mudasir Abbas Database
       </div>
       <div class="result-container" id="resultContainer">
-        <div class="empty-state"><i class="fas fa-id-card"></i><p>Enter a number &amp; press search</p></div>
+        <div class="empty-state"><i class="fas fa-id-card"></i><p>Mobile ya CNIC likhen &amp; search karein</p></div>
       </div>
     </div>
 
@@ -326,13 +297,11 @@
   </div>
 </div>
 
-<!-- NOTIF PANEL -->
 <div class="notif-panel" id="notifPanel">
   <h3>Notifications <i class="fas fa-times" id="closeNotif"></i></h3>
   <div id="notifList"><div class="notif-empty">No notifications yet</div></div>
 </div>
 
-<!-- EDIT PROFILE MODAL -->
 <div class="modal-backdrop" id="editModal">
   <div class="modal">
     <h3>Edit Profile <i class="fas fa-times" id="closeEdit"></i></h3>
@@ -350,7 +319,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, updateProfile }
   from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-import { getFirestore, doc, getDoc, setDoc, updateDoc, collection, query, where, onSnapshot, addDoc, serverTimestamp, getDocs }
+import { getFirestore, doc, getDoc, setDoc, updateDoc, collection, query, where, onSnapshot, addDoc, serverTimestamp }
   from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 const firebaseConfig = {
@@ -379,8 +348,7 @@ const screens = {
 };
 const authMsg = document.getElementById('authMsg');
 
-let currentUser = null;
-let userData = null;
+let currentUser = null, userData = null;
 let userDocUnsub = null, notifUnsub = null, histUnsub = null, schedUnsub = null;
 let currentHistory = [];
 let countdownInterval = null;
@@ -396,7 +364,6 @@ function showMsg(text, type){
   setTimeout(() => { authMsg.className = 'auth-msg'; }, 5000);
 }
 
-// TABS
 document.getElementById('loginTab').onclick = () => {
   document.getElementById('loginTab').classList.add('active');
   document.getElementById('signupTab').classList.remove('active');
@@ -410,7 +377,6 @@ document.getElementById('signupTab').onclick = () => {
   document.getElementById('loginForm').style.display = 'none';
 };
 
-// SIGNUP
 document.getElementById('doSignup').onclick = async () => {
   const name = document.getElementById('signupName').value.trim();
   const email = document.getElementById('signupEmail').value.trim();
@@ -433,7 +399,6 @@ document.getElementById('doSignup').onclick = async () => {
         todaySearches: 0, todayDate: '',
         customMessage: '', photo: ''
       });
-      // notify admin
       try{
         await addDoc(collection(db,'notifications'),{
           toEmail: 'malikmudasirkhar001@gmail.com', forAdmin: true,
@@ -443,19 +408,18 @@ document.getElementById('doSignup').onclick = async () => {
         });
       }catch(e){}
     }catch(e){console.warn(e);}
-    showMsg('✅ Account banaya. Admin approval ka wait karein.','success');
+    showMsg('✅ Account banaya. Admin approval wait karein.','success');
   }catch(e){
     let msg = 'Signup failed';
     if(e.code === 'auth/email-already-in-use') msg = 'Ye email pehle se use me hai';
     else if(e.code === 'auth/invalid-email') msg = 'Invalid email';
-    else if(e.code === 'auth/weak-password') msg = 'Password kamzor hai';
+    else if(e.code === 'auth/weak-password') msg = 'Password kamzor';
     else msg = e.message;
     showMsg(msg,'error');
     btn.disabled = false; btn.innerHTML = '<i class="fas fa-user-plus"></i> Create Account';
   }
 };
 
-// LOGIN
 document.getElementById('doLogin').onclick = async () => {
   const email = document.getElementById('loginEmail').value.trim();
   const password = document.getElementById('loginPassword').value;
@@ -466,7 +430,7 @@ document.getElementById('doLogin').onclick = async () => {
     await signInWithEmailAndPassword(auth, email, password);
   }catch(e){
     let msg = 'Login failed';
-    if(e.code === 'auth/user-not-found' || e.code === 'auth/wrong-password' || e.code === 'auth/invalid-credential') msg = 'Email ya password ghalat hai';
+    if(e.code === 'auth/user-not-found' || e.code === 'auth/wrong-password' || e.code === 'auth/invalid-credential') msg = 'Email ya password ghalat';
     else if(e.code === 'auth/too-many-requests') msg = 'Bohot attempts. Baad me try karein';
     else msg = e.message;
     showMsg(msg,'error');
@@ -479,14 +443,11 @@ document.getElementById('logoutPendingBtn').onclick = () => signOut(auth);
 document.getElementById('logoutDisabledBtn').onclick = () => signOut(auth);
 document.getElementById('logoutDeletedBtn').onclick = () => signOut(auth);
 
-// MAIN LISTENER
 async function handleLogin(user){
   const userRef = doc(db,'users',user.uid);
   let snap = null;
   try{ snap = await getDoc(userRef); }catch(e){ console.warn(e); }
-
   if(!snap || !snap.exists()){
-    // create pending user doc (in case signup missed)
     try{
       await setDoc(userRef,{
         name: user.displayName || 'User', email: user.email, uid: user.uid,
@@ -497,7 +458,6 @@ async function handleLogin(user){
       });
     }catch(e){console.warn(e);}
   }
-
   if(userDocUnsub) userDocUnsub();
   userDocUnsub = onSnapshot(userRef, (s) => {
     if(!s.exists()) return;
@@ -509,33 +469,20 @@ async function handleLogin(user){
 function routeByStatus(){
   if(!userData) return;
   const st = userData.status || 'pending';
-  if(st === 'deleted'){
-    showScreen('deleted');
-    return;
-  }
+  if(st === 'deleted'){ showScreen('deleted'); return; }
   if(st === 'blocked'){
     const msgEl = document.getElementById('disabledMsg');
-    if(userData.customMessage){
-      msgEl.innerHTML = '<i class="fas fa-info-circle"></i> ' + escapeHtml(userData.customMessage);
-    } else {
-      msgEl.innerHTML = '<i class="fas fa-info-circle"></i> Aap ko <strong>Mudasir Abbas Database</strong> ne disable kar diya hai.';
-    }
-    showScreen('disabled');
-    return;
+    msgEl.innerHTML = userData.customMessage ? '<i class="fas fa-info-circle"></i> ' + escapeHtml(userData.customMessage) : '<i class="fas fa-info-circle"></i> Aap ko <strong>Mudasir Abbas Database</strong> ne disable kar diya hai.';
+    showScreen('disabled'); return;
   }
-  if(st === 'pending'){
-    showScreen('pending');
-    return;
-  }
+  if(st === 'pending'){ showScreen('pending'); return; }
   if(st === 'approved'){
-    // check expiry
     if(userData.expiresAt){
       const exp = userData.expiresAt.toDate ? userData.expiresAt.toDate() : new Date(userData.expiresAt);
       if(exp.getTime() < Date.now()){
         document.getElementById('pendingTitle').textContent = 'Service Expired';
         document.getElementById('pendingMsg').innerHTML = 'Aapki service expire ho gayi.<br>Renew karwane ke liye contact karein.';
-        showScreen('pending');
-        return;
+        showScreen('pending'); return;
       }
     }
     showScreen('main');
@@ -551,64 +498,29 @@ function renderUserBar(){
   const name = userData.name || 'User';
   const initial = name.charAt(0).toUpperCase();
   const av = document.getElementById('userAvatar');
-  if(userData.photo){
-    av.innerHTML = `<img src="${escapeHtml(userData.photo)}" alt="">`;
-  } else {
-    av.textContent = initial;
-  }
+  if(userData.photo){ av.innerHTML = `<img src="${escapeHtml(userData.photo)}">`; } else { av.textContent = initial; }
   document.getElementById('userName').textContent = name;
   document.getElementById('userEmail').textContent = userData.email || '';
-  // profile
   const pAv = document.getElementById('profileAvatar');
-  if(userData.photo){
-    pAv.innerHTML = `<img src="${escapeHtml(userData.photo)}" alt=""><div class="edit-badge" id="changePicBtn"><i class="fas fa-camera"></i></div>`;
-  } else {
-    pAv.innerHTML = `<span id="profileInitial">${initial}</span><div class="edit-badge" id="changePicBtn"><i class="fas fa-camera"></i></div>`;
-  }
+  pAv.innerHTML = userData.photo ? `<img src="${escapeHtml(userData.photo)}"><div class="edit-badge" id="changePicBtn"><i class="fas fa-camera"></i></div>` : `<span id="profileInitial">${initial}</span><div class="edit-badge" id="changePicBtn"><i class="fas fa-camera"></i></div>`;
   document.getElementById('profileName').textContent = name;
   document.getElementById('profileEmail').textContent = userData.email || '';
   document.getElementById('infoEmail').textContent = userData.email || '';
   document.getElementById('infoJoined').textContent = userData.createdAt?.toDate ? userData.createdAt.toDate().toLocaleDateString() : '-';
-  // expires
-  if(userData.duration === 'lifetime' || !userData.expiresAt){
-    document.getElementById('infoExpires').textContent = userData.duration === 'lifetime' ? 'Lifetime' : '-';
-  } else {
-    const exp = userData.expiresAt.toDate ? userData.expiresAt.toDate() : new Date(userData.expiresAt);
-    document.getElementById('infoExpires').textContent = exp.toLocaleDateString();
-  }
-  // limits
+  if(userData.duration === 'lifetime' || !userData.expiresAt){ document.getElementById('infoExpires').textContent = userData.duration === 'lifetime' ? 'Lifetime' : '-'; }
+  else { const exp = userData.expiresAt.toDate ? userData.expiresAt.toDate() : new Date(userData.expiresAt); document.getElementById('infoExpires').textContent = exp.toLocaleDateString(); }
   const maxS = userData.maxSearches || 0;
   const daily = userData.dailyLimit || 0;
   const used = userData.searchesUsed || 0;
-  document.getElementById('infoLimits').textContent = 
-    (maxS ? `${used}/${maxS} total` : 'Unlimited') + ' · ' +
-    (daily ? `${daily}/day` : 'No daily cap');
-  // profile search count
+  document.getElementById('infoLimits').textContent = (maxS ? `${used}/${maxS} total` : 'Unlimited') + ' · ' + (daily ? `${daily}/day` : 'No daily cap');
   document.getElementById('profileSearches').textContent = currentHistory.length;
-
-  // limits bar on search tab
   const bar = document.getElementById('limitsBar');
   let pills = '';
-  if(maxS){
-    const left = Math.max(0, maxS - used);
-    pills += `<div class="limit-pill"><i class="fas fa-search"></i> <strong>${left}</strong> left</div>`;
-  } else {
-    pills += `<div class="limit-pill"><i class="fas fa-infinity"></i> <strong>Unlimited</strong></div>`;
-  }
-  if(daily){
-    const today = todayStr();
-    const todayUsed = (userData.todayDate === today) ? (userData.todaySearches || 0) : 0;
-    const left = Math.max(0, daily - todayUsed);
-    pills += `<div class="limit-pill"><i class="fas fa-calendar-day"></i> <strong>${left}</strong> today</div>`;
-  }
-  if(userData.expiresAt){
-    const exp = userData.expiresAt.toDate ? userData.expiresAt.toDate() : new Date(userData.expiresAt);
-    const d = Math.max(0, Math.ceil((exp.getTime() - Date.now())/86400000));
-    pills += `<div class="limit-pill"><i class="fas fa-clock"></i> <strong>${d}</strong> days</div>`;
-  }
+  if(maxS){ pills += `<div class="limit-pill"><i class="fas fa-search"></i> <strong>${Math.max(0,maxS-used)}</strong> left</div>`; }
+  else { pills += `<div class="limit-pill"><i class="fas fa-infinity"></i> <strong>Unlimited</strong></div>`; }
+  if(daily){ const today = todayStr(); const tu = (userData.todayDate === today) ? (userData.todaySearches || 0) : 0; pills += `<div class="limit-pill"><i class="fas fa-calendar-day"></i> <strong>${Math.max(0,daily-tu)}</strong> today</div>`; }
+  if(userData.expiresAt){ const exp = userData.expiresAt.toDate ? userData.expiresAt.toDate() : new Date(userData.expiresAt); const d = Math.max(0, Math.ceil((exp.getTime() - Date.now())/86400000)); pills += `<div class="limit-pill"><i class="fas fa-clock"></i> <strong>${d}</strong> days</div>`; }
   bar.innerHTML = pills;
-
-  // re-attach pic handler
   const btn = document.getElementById('changePicBtn');
   if(btn) btn.onclick = () => document.getElementById('picInput').click();
 }
@@ -618,11 +530,7 @@ function todayStr(){ return new Date().toISOString().slice(0,10); }
 function startCountdown(){
   if(countdownInterval) clearInterval(countdownInterval);
   const badge = document.getElementById('timeLeftBadge');
-  if(!userData.expiresAt){
-    badge.textContent = userData.duration === 'lifetime' ? 'LIFETIME' : 'ACTIVE';
-    badge.className = 'time-left';
-    return;
-  }
+  if(!userData.expiresAt){ badge.textContent = userData.duration === 'lifetime' ? 'LIFETIME' : 'ACTIVE'; badge.className = 'time-left'; return; }
   const exp = userData.expiresAt.toDate ? userData.expiresAt.toDate() : new Date(userData.expiresAt);
   const tick = () => {
     const diff = exp.getTime() - Date.now();
@@ -632,11 +540,9 @@ function startCountdown(){
     badge.textContent = `${d}d ${h}h ${m}m ${s}s`;
     badge.className = 'time-left' + (d <= 2 ? ' warn' : '');
   };
-  tick();
-  countdownInterval = setInterval(tick, 1000);
+  tick(); countdownInterval = setInterval(tick, 1000);
 }
 
-// NOTIFICATIONS
 function listenNotifications(){
   if(notifUnsub) notifUnsub();
   try{
@@ -649,17 +555,11 @@ function listenNotifications(){
       dot.textContent = unread;
       const list = document.getElementById('notifList');
       if(items.length === 0){ list.innerHTML = '<div class="notif-empty">No notifications yet</div>'; return; }
-      list.innerHTML = items.map(n=>`
-        <div class="notif-item">
-          <div class="ntitle">${escapeHtml(n.title||'')}</div>
-          <div class="nmsg">${escapeHtml(n.message||'')}</div>
-          <div class="ntime">${n.createdAt?.toDate ? n.createdAt.toDate().toLocaleString() : ''}</div>
-        </div>`).join('');
+      list.innerHTML = items.map(n=>`<div class="notif-item"><div class="ntitle">${escapeHtml(n.title||'')}</div><div class="nmsg">${escapeHtml(n.message||'')}</div><div class="ntime">${n.createdAt?.toDate ? n.createdAt.toDate().toLocaleString() : ''}</div></div>`).join('');
     });
   }catch(e){console.warn(e);}
 }
 
-// SCHEDULED daily notifs
 function listenScheduledNotifs(){
   if(schedUnsub) schedUnsub();
   try{
@@ -672,13 +572,8 @@ function listenScheduledNotifs(){
         if(!n.active) return;
         if(n.time !== hhmm) return;
         if(n.lastSentDate === today) return;
-        // send it
         try{
-          await addDoc(collection(db,'notifications'),{
-            toEmail: userData.email, forAdmin: false,
-            title: n.title, message: n.message,
-            read: false, createdAt: serverTimestamp()
-          });
+          await addDoc(collection(db,'notifications'),{ toEmail: userData.email, forAdmin: false, title: n.title, message: n.message, read: false, createdAt: serverTimestamp() });
           await updateDoc(doc(db,'scheduledNotifs',d.id),{ lastSentDate: today });
         }catch(e){}
       });
@@ -686,7 +581,6 @@ function listenScheduledNotifs(){
   }catch(e){console.warn(e);}
 }
 
-// HISTORY
 function listenHistory(){
   if(histUnsub) histUnsub();
   try{
@@ -697,20 +591,12 @@ function listenHistory(){
       document.getElementById('profileSearches').textContent = currentHistory.length;
       const list = document.getElementById('historyList');
       if(currentHistory.length === 0){ list.innerHTML = '<div class="empty-state"><i class="fas fa-clock-rotate-left"></i><p>No history yet</p></div>'; return; }
-      list.innerHTML = currentHistory.map(h=>`
-        <div class="hist-item">
-          <div>
-            <div class="hnum"><i class="fas fa-phone" style="color:#3d82ff;margin-right:5px"></i>${escapeHtml(h.mobile||'')}</div>
-            <div class="hname">${escapeHtml(h.name||'Unknown')}</div>
-          </div>
-          <div class="hdate">${h.createdAt?.toDate ? h.createdAt.toDate().toLocaleString() : ''}</div>
-        </div>`).join('');
+      list.innerHTML = currentHistory.map(h=>`<div class="hist-item"><div><div class="hnum"><i class="fas fa-phone" style="color:#3d82ff;margin-right:5px"></i>${escapeHtml(h.mobile||'')}</div><div class="hname">${escapeHtml(h.name||'Unknown')}</div></div><div class="hdate">${h.createdAt?.toDate ? h.createdAt.toDate().toLocaleString() : ''}</div></div>`).join('');
       renderUserBar();
     });
   }catch(e){console.warn(e);}
 }
 
-// NAV TABS
 document.querySelectorAll('.nav-tab').forEach(t=>{
   t.onclick = () => {
     document.querySelectorAll('.nav-tab').forEach(x=>x.classList.remove('active'));
@@ -720,11 +606,9 @@ document.querySelectorAll('.nav-tab').forEach(t=>{
   };
 });
 
-// NOTIF PANEL
 document.getElementById('notifBell').onclick = () => document.getElementById('notifPanel').classList.add('open');
 document.getElementById('closeNotif').onclick = () => document.getElementById('notifPanel').classList.remove('open');
 
-// EDIT PROFILE
 document.getElementById('editProfileBtn').onclick = () => {
   document.getElementById('editName').value = userData.name || '';
   document.getElementById('editModal').classList.add('open');
@@ -742,23 +626,18 @@ document.getElementById('saveEdit').onclick = async () => {
   }catch(e){ alert('Error: '+e.message); }
 };
 
-// PIC UPLOAD
 document.getElementById('picInput').onchange = (e) => {
   const f = e.target.files[0];
   if(!f) return;
   if(f.size > 400*1024){ alert('Image 400KB se chhoti honi chahiye'); return; }
   const reader = new FileReader();
   reader.onload = async (ev) => {
-    const dataUrl = ev.target.result;
-    try{
-      await updateDoc(doc(db,'users',userData.uid),{ photo: dataUrl });
-      alert('✅ Picture updated');
-    }catch(e){ alert('Error: '+e.message); }
+    try{ await updateDoc(doc(db,'users',userData.uid),{ photo: ev.target.result }); alert('✅ Picture updated'); }
+    catch(e){ alert('Error: '+e.message); }
   };
   reader.readAsDataURL(f);
 };
 
-// AUTH STATE
 onAuthStateChanged(auth, async (user) => {
   if(!user){
     currentUser = null; userData = null; authHandled = false;
@@ -777,7 +656,6 @@ onAuthStateChanged(auth, async (user) => {
   await handleLogin(user);
 });
 
-// SEARCH
 const numberInput = document.getElementById('numberInput');
 const resultContainer = document.getElementById('resultContainer');
 
@@ -790,15 +668,19 @@ function parseSafeJSON(raw){
 }
 
 function showFetching(){
-  resultContainer.innerHTML = `
-    <div class="fetching-overlay">
-      <div class="fetching-spinner"></div>
-      <div class="fetching-text">FETCHING BY MUDASIR ABBAS DATABASE</div>
-      <div style="font-size:0.72rem;color:#8fa9d0">Please wait...</div>
-    </div>`;
+  resultContainer.innerHTML = `<div class="fetching-overlay"><div class="fetching-spinner"></div><div class="fetching-text">FETCHING BY MUDASIR ABBAS DATABASE</div><div style="font-size:0.72rem;color:#8fa9d0">Please wait...</div></div>`;
 }
 function showError(msg){
   resultContainer.innerHTML = `<div style="color:#ff8a8a;background:#2a1515;padding:0.9rem 1.2rem;border-radius:1.2rem;font-size:0.85rem;display:flex;gap:0.7rem;border:1px solid #5a2020"><i class="fas fa-exclamation-triangle" style="color:#ff5252;font-size:1.1rem"></i><span>${escapeHtml(msg)}</span></div>`;
+}
+
+// ===== CNIC detection =====
+function detectInputType(input){
+  const clean = input.replace(/[\s\-]/g,'');
+  // CNIC: exactly 13 digits and doesn't start with 0
+  if(/^\d{13}$/.test(clean) && !clean.startsWith('0')) return { type: 'cnic', value: clean };
+  // Mobile: starts with 0 (11 digits) or 92 (12 digits) or without leading
+  return { type: 'mobile', value: clean };
 }
 
 async function checkLimits(){
@@ -808,61 +690,94 @@ async function checkLimits(){
   const today = todayStr();
   const daily = userData.dailyLimit || 0;
   const todayUsed = (userData.todayDate === today) ? (userData.todaySearches || 0) : 0;
-  if(max > 0 && used >= max) return { ok:false, msg:'Aapki total search limit khatam ho gayi. Admin se renew karwaein.' };
-  if(daily > 0 && todayUsed >= daily) return { ok:false, msg:`Aaj ki limit (${daily}) khatam. Kal dobara try karein.` };
+  if(max > 0 && used >= max) return { ok:false, msg:'Total search limit khatam ho gayi. Admin se renew karwaein.' };
+  if(daily > 0 && todayUsed >= daily) return { ok:false, msg:`Aaj ki limit (${daily}) khatam. Kal try karein.` };
   return { ok:true };
 }
 
-async function incrementSearchUsage(){
+async function incrementSearchUsage(count){
   const today = todayStr();
   const daily = userData.dailyLimit || 0;
   const todayUsed = (userData.todayDate === today) ? (userData.todaySearches || 0) : 0;
   try{
     await updateDoc(doc(db,'users',userData.uid),{
-      searchesUsed: (userData.searchesUsed || 0) + 1,
-      todaySearches: todayUsed + 1,
+      searchesUsed: (userData.searchesUsed || 0) + (count || 1),
+      todaySearches: todayUsed + (count || 1),
       todayDate: today
     });
   }catch(e){ console.warn(e); }
 }
 
-async function fetchSimInfo(number){
-  if(!number || !number.trim()){ showError('Please enter a mobile number.'); return; }
-  const clean = number.replace(/[\s\-]/g,'');
+async function fetchSimInfo(input){
+  if(!input || !input.trim()){ showError('Please mobile ya CNIC likhen.'); return; }
+  const det = detectInputType(input);
   const lim = await checkLimits();
   if(!lim.ok){ showError(lim.msg); return; }
   showFetching();
   try{
-    const res = await fetch(API_BASE + encodeURIComponent(clean));
+    const res = await fetch(API_BASE + encodeURIComponent(det.value));
     if(!res.ok) throw new Error(`HTTP ${res.status}`);
     const data = parseSafeJSON(await res.text());
-    renderRecords(data);
+    renderRecords(data, det);
     if(data && data.success === true && data.records && data.records.length > 0 && userData){
-      const r = data.records[0];
-      try{
-        await addDoc(collection(db,'history'),{
-          userEmail: userData.email, userUid: userData.uid, userName: userData.name,
-          mobile: clean, name: r.name||'', cnic: r.cnic||'', address: r.address||'', network: r.network||'',
-          createdAt: serverTimestamp()
-        });
-        await incrementSearchUsage();
-      }catch(e){ console.warn(e); }
+      const count = data.records.length;
+      // save history (each record)
+      for(const r of data.records){
+        try{
+          await addDoc(collection(db,'history'),{
+            userEmail: userData.email, userUid: userData.uid, userName: userData.name,
+            searchTerm: det.value, searchType: det.type,
+            mobile: r.mobile||'', name: r.name||'', cnic: r.cnic||'', address: r.address||'', network: r.network||'',
+            createdAt: serverTimestamp()
+          });
+        }catch(e){ console.warn(e); }
+      }
+      await incrementSearchUsage(count);
     }
   }catch(err){ showError('Error: ' + err.message); }
 }
 
-function renderRecords(data){
+function renderRecords(data, det){
   if(!data || data.success !== true || !data.records || data.records.length === 0){
     resultContainer.innerHTML = `<div class="empty-state"><i class="fas fa-user-slash"></i><p>No records found.</p></div>`;
     return;
   }
-  const r = data.records[0];
+
+  const records = data.records;
+
+  // MULTIPLE RECORDS (CNIC search)
+  if(records.length > 1){
+    let html = `<div class="multi-header"><i class="fas fa-id-card"></i> Is CNIC se linked mobile numbers <span class="count">${records.length}</span></div>`;
+    records.forEach((r, idx) => {
+      html += renderSingleCard(r, idx+1, records.length, det.type === 'cnic');
+    });
+    resultContainer.innerHTML = html;
+  } else {
+    // SINGLE RECORD
+    const r = records[0];
+    resultContainer.innerHTML = renderSingleCard(r, 1, 1, false) + `
+      <div class="action-row">
+        <button class="action-btn" id="newSearchBtn"><i class="fas fa-search"></i> New</button>
+        <button class="action-btn green" id="downloadPdfBtn"><i class="fas fa-file-pdf"></i> PDF</button>
+        <button class="action-btn purple" id="sharePdfBtn"><i class="fas fa-share-alt"></i> Share</button>
+      </div>`;
+    document.getElementById('newSearchBtn').onclick = () => {
+      numberInput.value = ''; numberInput.focus();
+      resultContainer.innerHTML = `<div class="empty-state"><i class="fas fa-id-card"></i><p>Mobile ya CNIC likhen &amp; search karein</p></div>`;
+    };
+    document.getElementById('downloadPdfBtn').onclick = () => downloadPDF(r, false);
+    document.getElementById('sharePdfBtn').onclick = () => downloadPDF(r, true);
+  }
+}
+
+function renderSingleCard(r, idx, total, isCnic){
   const today = new Date().toLocaleDateString('en-PK',{day:'2-digit',month:'short',year:'numeric'});
-  resultContainer.innerHTML = `
-    <div class="id-card" id="idCardEl">
+  const headerLabel = isCnic && total > 1 ? `NUMBER #${idx} OF ${total}` : 'SIM VERIFICATION';
+  return `
+    <div class="id-card">
       <div class="id-card-header">
         <i class="fas fa-id-card"></i>
-        <div class="title">SIM VERIFICATION<span>MUDASIR ABBAS DATABASE</span></div>
+        <div class="title">${headerLabel}<span>MUDASIR ABBAS DATABASE</span></div>
         <div class="net-badge">${escapeHtml(r.network||'N/A')}</div>
       </div>
       <div>
@@ -875,39 +790,23 @@ function renderRecords(data){
         <div class="brand">MUDASIR ABBAS DB</div>
         <div class="stamp">VERIFIED<br>MUDASIR<br>${today}</div>
       </div>
-    </div>
-    <div class="action-row">
-      <button class="action-btn" id="newSearchBtn"><i class="fas fa-search"></i> New</button>
-      <button class="action-btn green" id="downloadPdfBtn"><i class="fas fa-file-pdf"></i> PDF</button>
-      <button class="action-btn purple" id="sharePdfBtn"><i class="fas fa-share-alt"></i> Share</button>
     </div>`;
-  document.getElementById('newSearchBtn').onclick = () => {
-    numberInput.value = ''; numberInput.focus();
-    resultContainer.innerHTML = `<div class="empty-state"><i class="fas fa-id-card"></i><p>Enter a number &amp; press search</p></div>`;
-  };
-  document.getElementById('downloadPdfBtn').onclick = () => downloadPDF(r, false);
-  document.getElementById('sharePdfBtn').onclick = () => downloadPDF(r, true);
 }
 
-// PDF with logos + share
 async function downloadPDF(record, share){
   const today = new Date().toLocaleString('en-PK');
   const container = document.createElement('div');
   container.style.cssText = 'background:#fff;padding:36px;font-family:Arial,sans-serif;width:620px;';
   container.innerHTML = `
-    <div style="border:3px double #0a3a9e;padding:26px;border-radius:12px;position:relative">
+    <div style="border:3px double #0a3a9e;padding:26px;border-radius:12px">
       <div style="text-align:center;margin-bottom:18px">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;padding-bottom:10px;border-bottom:2px solid #0a3a9e">
-          <div style="width:70px;height:70px;border-radius:50%;background:linear-gradient(135deg,#0a3a9e,#4f9eff);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:900;font-size:9px;text-align:center;line-height:1.1;border:3px solid #0a3a9e">
-            GOVT<br>PUNJAB<br>PAKISTAN
-          </div>
+          <div style="width:70px;height:70px;border-radius:50%;background:linear-gradient(135deg,#0a3a9e,#4f9eff);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:900;font-size:9px;text-align:center;line-height:1.1;border:3px solid #0a3a9e">GOVT<br>PUNJAB<br>PAKISTAN</div>
           <div style="text-align:center;flex:1">
             <div style="font-size:26px;font-weight:900;color:#0a3a9e;letter-spacing:3px">MUDASIR ABBAS</div>
             <div style="font-size:11px;color:#666;letter-spacing:2px;margin-top:2px">SIM VERIFICATION CERTIFICATE</div>
           </div>
-          <div style="width:70px;height:70px;border-radius:50%;background:linear-gradient(135deg,#1a7a3e,#25d366);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:900;font-size:10px;text-align:center;line-height:1.1;border:3px solid #1a7a3e">
-            NADRA<br>PAKISTAN
-          </div>
+          <div style="width:70px;height:70px;border-radius:50%;background:linear-gradient(135deg,#1a7a3e,#25d366);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:900;font-size:10px;text-align:center;line-height:1.1;border:3px solid #1a7a3e">NADRA<br>PAKISTAN</div>
         </div>
         <div style="height:3px;background:linear-gradient(90deg,transparent,#0a3a9e,transparent);margin:12px 0"></div>
       </div>
@@ -930,16 +829,12 @@ async function downloadPDF(record, share){
         </div>
         <div style="text-align:center">
           <div style="width:95px;height:95px;border:3px double #0a3a9e;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#0a3a9e;font-weight:800;font-size:10px;line-height:1.15;transform:rotate(-10deg);box-shadow:0 0 0 3px #fff inset">
-            <div>MUDASIR</div><div style="font-size:9px">ABBAS</div>
-            <div style="border-top:1px solid #0a3a9e;margin-top:2px;padding-top:2px;font-size:7px">DATABASE</div>
-            <div style="font-size:7px">VERIFIED</div>
+            <div>MUDASIR</div><div style="font-size:9px">ABBAS</div><div style="border-top:1px solid #0a3a9e;margin-top:2px;padding-top:2px;font-size:7px">DATABASE</div><div style="font-size:7px">VERIFIED</div>
           </div>
           <div style="font-size:9px;color:#666;margin-top:6px">Authorized Signature</div>
         </div>
       </div>
-      <div style="margin-top:16px;padding-top:12px;border-top:1px dashed #ccc;text-align:center;font-size:9px;color:#888">
-        System-generated certificate · Mudasir Abbas Database · 0308 419 1378
-      </div>
+      <div style="margin-top:16px;padding-top:12px;border-top:1px dashed #ccc;text-align:center;font-size:9px;color:#888">System-generated certificate · Mudasir Abbas Database · 0308 419 1378</div>
     </div>`;
   document.body.appendChild(container);
   const filename = `SIM_${record.mobile || 'record'}_${Date.now()}.pdf`;
@@ -955,12 +850,8 @@ async function downloadPDF(record, share){
       const file = new File([blob], filename, { type: 'application/pdf' });
       if(navigator.canShare && navigator.canShare({ files: [file] })){
         await navigator.share({ files: [file], title: 'SIM Info', text: 'SIM Verification' });
-      } else {
-        await worker.save();
-      }
-    } else {
-      await worker.save();
-    }
+      } else { await worker.save(); }
+    } else { await worker.save(); }
   }catch(err){ alert('PDF error: ' + err.message); }
   document.body.removeChild(container);
 }
